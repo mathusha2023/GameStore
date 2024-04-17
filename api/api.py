@@ -1,12 +1,19 @@
-from flask import Flask, jsonify
-from flask_restful import reqparse, abort, Api, Resource
+from flask import Flask
+from flask_restful import Api
+import os
 from data import db_session
+from game_resources import GameResource, GameListResource
 
 app = Flask(__name__)
 api = Api(app)
+api.add_resource(GameResource, "/game/<int:game_id>")
+api.add_resource(GameListResource, "/games", "/games/<int:author_id>")
 
 
 def main():
+    if not os.path.isdir("db"):
+        os.mkdir("db")
+        os.mkdir("db/games")
     db_session.global_init("db/games.db")
     app.run(host="127.0.0.1", port=8080)
 
