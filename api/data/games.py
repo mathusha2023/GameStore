@@ -15,4 +15,4 @@ class Game(SqlAlchemyBase, SerializerMixin):
     author = sqlalchemy.Column(sqlalchemy.Integer, index=True)
     rate = sqlalchemy.Column(sqlalchemy.Float, nullable=True)
     votes = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
-    images = orm.relationship("Image", back_populates="game")
+    images = orm.relationship("Image")

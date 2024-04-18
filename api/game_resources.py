@@ -21,6 +21,14 @@ class GameResource(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument("rate", required=True)
 
+    def get(self, game_id):
+        abort_if_game_not_found(game_id)
+        session = db_session.create_session()
+        game: Game = session.query(Game).get(game_id)
+        return jsonify(
+            game.to_dict()
+        )
+
 
 class GameListResource(Resource):
     def get(self):
@@ -35,7 +43,7 @@ class GameListResource(Resource):
                 abort(400, message="Author value must be integer")
             games = session.query(Game).filter(Game.author == author)
         return jsonify(
-            dict(games=[item.to_dict(only=("title", "prev", "author", "rate")) for item in games])
+            dict(games=[item.to_dict(only=("id", "title", "prev", "author", "rate")) for item in games])
         )
 
     def post(self):
