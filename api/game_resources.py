@@ -42,14 +42,14 @@ class GameListResource(Resource):
         else:
             i = sp[0].id + 1
 
-        os.mkdir(f"static/games/{i}")
-        os.mkdir(f"static/games/{i}/images")
-        prev = self.load_file(args["prev"], f"static/games/{i}/preview")
-        file = self.load_file(args["file"], f"static/games/{i}/file")
+        os.mkdir(f"db/games/{i}")
+        os.mkdir(f"db/games/{i}/images")
+        prev = self.load_file(args["prev"], f"db/games/{i}/preview")
+        file = self.load_file(args["file"], f"db/games/{i}/file")
         for j in range(len(args["images"])):
             image = Image()
             image.game_id = i
-            image.img = self.load_file(args["images"][j], f"static/games/{i}/images/{j}")
+            image.img = self.load_file(args["images"][j], f"db/games/{i}/images/{j}")
             session.add(image)
 
         game = Game()
