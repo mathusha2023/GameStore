@@ -10,7 +10,7 @@ app.config["SECRET_KEY"] = "IfYoUhAvErEaDtHiSyOuArEgEy"
 
 api = Api(app)
 api.add_resource(GameResource, "/game/<int:game_id>")
-api.add_resource(GameListResource, "/games", "/games/<int:author_id>")
+api.add_resource(GameListResource, "/games")
 api.add_resource(GetFileResource, "/file")
 
 
