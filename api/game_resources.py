@@ -44,10 +44,13 @@ class GameListResource(Resource):
 
         os.mkdir(f"db/games/{i}")
         os.mkdir(f"db/games/{i}/images")
-        self.load_file(args["prev"], f"db/games/{i}/preview")
-        self.load_file(args["file"], f"db/games/{i}/file")
+        prev = self.load_file(args["prev"], f"db/games/{i}/preview")
+        file = self.load_file(args["file"], f"db/games/{i}/file")
         for j in range(len(args["images"])):
-            self.load_file(args["images"][j], f"db/games/{i}/images/{j}")
+            image = Image()
+            image.game_id = i
+            image.img = self.load_file(args["images"][j], f"db/games/{i}/images/{j}")
+            session.add(image)
 
         game = Game()
         game.id = i
@@ -56,12 +59,14 @@ class GameListResource(Resource):
         game.author = args["author"]
         game.rate = 0.0
         game.votes = 0
-        game.file = "A"
-        game.prev = "as"
+        game.file = file
+        game.prev = prev
         session.add(game)
         session.commit()
         return jsonify({})
 
     def load_file(self, file: tuple[str, bytes], filename):
-        with open(f"{filename}.{file[0]}", "wb") as f:
+        fullname = f"{filename}.{file[0]}"
+        with open(fullname, "wb") as f:
             f.write(file[1])
+        return fullname
