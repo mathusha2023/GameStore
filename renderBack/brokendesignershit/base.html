@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- 9850040ab6b48d270a7dae24c0d1bd31 -->
+
+    <link rel="stylesheet" href="335576.lp.tobiz.net_files/normalize.min.css" media="screen">
+    <link rel="stylesheet" href="335576.lp.tobiz.net_files/modal.min.css" media="screen">
+    <link rel="stylesheet" href="335576.lp.tobiz.net_files/forms.min.css" media="screen">
+    <link rel="stylesheet" href="335576.lp.tobiz.net_files/icons.min.css" media="screen">
+
+    <script type="text/javascript" src="335576.lp.tobiz.net_files/jquery.min.js"></script>
+    <script type="text/javascript" src="335576.lp.tobiz.net_files/astc.min.js"></script>
+
+
+    <script>
+        $(function(){
+            window.modal = {
+                getModal: function(title = 'Заголовок',  descr='Описание', modal_class = '') {
+                    var modal_template = `
+                        <div class="modal_bg">
+                            <div class="modal_body ${modal_class}">
+                                <div class="modal_close"><i class="fa fa-times"></i></div>
+                                <div class="modal_inner">
+                                    <div class="modal_title">${title}</div>
+                                    <div class="modal_descr">${descr}</div>
+                                </div>
+                            </div>
+                        </div>`;
+                    $('body').append(modal_template);
+                    $('body').addClass('modal2');
+                },
+                init: function() {
+                    $('body').on('click', '.modal_close', function(){
+                        $(this).parent().parent().remove();
+                        $('body').removeClass('modal2');
+                    });
+                    $('body').on('click', '.modal_body', function(e){
+                        e.stopPropagation();
+                    });
+                    $('body').on('click', '.modal_bg', function(e){
+                        $(this).find('.modal_close').click();
+                    });
+                }
+            };
+            window.modal.init();
+        });
+    </script>
+
+
+    <script type="text/javascript" src="335576.lp.tobiz.net_files/underscore-min.js"></script>
+
+
+    <script>
+        window.tobiz = {"project_id":"335576","project_domain":"","page_title":"","page_dir":"","personal_seo_configs":"1","seo_title":"","seo_keywords":"","seo_description":"","OG_image":"","access_control":"0","valid_login":"","valid_password":"","pp":"0","rep_id":"893978","user_id":"254334","owner_email":"KocheevVadya@yandex.ru","user_email":"KocheevVadya@yandex.ru","user_pnf":"0.00","bs":false,"t":"0","free":1,"courses_on":"0","products_on":"0","articles_on":"0","page_config":{"btn_radius":"1.7","btn_bg_hover":"#dd5000","btn_shadow":"5"},"showIntro":0,"w":1,"basket_conf":null}
+    </script>
+
+
+    <!-- Tobiz styles -->
+    <link rel="stylesheet" href="335576.lp.tobiz.net_files/style.min.css" media="screen">
+    <style>
+        .section103{padding:20px 0}.section103 a.phone1:hover,.section103 a.phone2:hover{opacity:.7}.section103 .section_inner.width1170{display:flex;flex-wrap:wrap;justify-content:space-between}.section103 .section_inner .clear,.section103 .section_inner.width1170 .clear{display:none}.section103 .section_inner.width1170 .logo_img,.section103 .section_inner.width1170 .phone-and-btn,.section103 .section_inner.width1170 .slogan{min-width:30%;width:auto;max-width:32%}.section103 .section_inner{display:flex;justify-content:space-between}.section103.fixed_top{z-index:100}.section103 .slogan{float:left;width:300px;text-align:left}.section103 .slogan .text1{margin-bottom:5px}.section103 .logo_img img{max-width:200px;display:block;margin:0 auto;max-height:90px}.section103 .logo_img,.section103 .logo_text{float:left;margin-left:20px;width:300px;text-align:center;display:block}.section103 .logo_text{font-size:24px;text-align:center;margin:0 auto}.section103 .width1170 .phone-and-btn{display:flex;flex-direction:column;align-items:flex-end}.section103 .phone-and-btn{width:300px;text-align:left;display:flex;align-items:flex-end;flex-direction:column}.section103 .phone-and-address{float:right;text-align:right}.section103 .phone1,.section103 .phone2{font-size:24px}.section103 .phone1.show_phone_icon:before,.section103 .phone2.show_phone_icon:before{content:"\f095";padding-right:5px;display:inline-block;font:14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.section103 a.phone1,.section103 a.phone2{color:inherit;text-decoration:none}.section103 .btn1{padding:2px 18px;border:2px solid;max-width:250px;min-width:130px;margin-top:12px;height:35px}.section103 .btn1.surround{border-color:transparent}.section103 .logo_img{max-width:270px;width:auto}@media (max-width:960px){.section103 .slogan{float:left;text-align:left;width:30%;margin:0}.section103 .phone1,.section103 .phone2{margin:0 auto 1rem;display:block}.section103 .logo_img{float:left;margin:0}.section103 .logo_text{float:left;margin:0 auto;width:200px;text-align:center}.section103 .btn1{margin:0 0 0 auto}.section103 .phone-and-btn{width:30%;display:flex;flex-direction:column;justify-content:space-around}.section103 .menu-and-phone-and-btn{margin:25px auto 0;float:none;width:auto}.section103 .phone1,.section103 .phone2{text-align:right;width:100%}.section103 .text1,.section103 .text1 *,.section103 .text2,.section103 .text2 span{font-size:16px!important}}@media (max-width:800px){.section103.fixed_top .btn1{display:none}.section103 .slogan{width:30%}}@media (max-width:640px){.section103 .section_inner.width1170,.section103.tall_style .section_inner{flex-direction:column}.section103 .section_inner.width1170 .logo_img,.section103 .section_inner.width1170 .phone-and-btn,.section103 .section_inner.width1170 .slogan{max-width:100%}.section103 .logo_img,.section103 .phone-and-btn{float:none;margin:0 auto 1rem}.section103 .btn1{margin:0 auto}.section103 .logo_text{float:none;margin-bottom:5px;margin-right:10px}.section103 .logo_img{margin-right:10px;margin-left:0}.section103.section{padding:10px 0}.section103.fixed_top{padding:5px 0}.section103.fixed_top .text1,.section103.fixed_top .text2{font-size:14px!important;line-height:20px}.section103{padding:20px 0!important}.section103 .text2,.section103 .text2 span{font-size:12px!important}.section103 .text1,.section103 .text2{margin-top:7px;margin-bottom:7px;text-align:center!important}.section103 .phone1,.section103 .phone2{text-align:right!important}.section103 .text1,.section103 .text1 *{font-size:14px!important}.section103 .slogan{width:calc(100% - 140px);padding-top:0;order:2;text-align:right;display:none}.section103 .section_inner{align-items:center}.section103.tall_style .slogan{text-align:center;padding-top:10px}.section103 .phone-and-btn{order:3;width:100%!important;margin-right:0}.section103 .hide_logo .slogan{padding-top:0;padding-bottom:40px}.section103 .hide_logo .logo_img{display:none}.section103.tall_style .slogan{display:block}.section103 .logo_text{text-align:left}.section103.tall_style .logo_text{text-align:center}.section103.tall_style .phone1,.section103.tall_style .phone2{margin-top:5px;text-align:center!important}.section103.tall_style .phone-and-btn{position:static;margin:0 auto;text-align:center!important}}@media (max-width:480px){.section103 .section_inner{flex-direction:column}.section103 .phone1,.section103 .text1,.section103 .text2{text-align:center!important}.section103 .logo_text{text-align:center}.section103 .phone-and-btn{margin:0 auto}}@media (max-width:440px){.section103 .section_inner.hide_logo{flex-direction:column}.section103 .section_inner.hide_logo .phone-and-btn{position:static}.section103 .section_inner.hide_logo .logo_img,.section103 .section_inner.hide_logo .logo_text{display:none}.section103 .hide_logo .text1,.section103 .hide_logo .text1 *,.section103 .hide_logo .text2,.section103 .hide_logo .text2 span{font-size:14px!important;text-align:center}}@media (max-width:400px){.section103 .text1,.section103 .text1 *{font-size:12px!important;text-transform:lowercase}}@media (max-width:375px){.section103 .text1,.section103 .text1 *,.section103 .text2,.section103 .text2 span{font-size:12px!important}}.section119 .policy,.section119 .tobiz_link{text-decoration:underline;color:#888;margin-top:10px;cursor:pointer}.section119.fixed_top{z-index:100;padding:15px 0}.section119 .section_inner{display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between}.section119 .logo_img img{max-width:200px;max-height:90px}.section119 .logo_img{display:block}.section119 .logo_text{max-width:200px;font-size:24px;min-width:10px}.section119 .width1170 .address-and-ua{max-width:50%;width:auto}.section119 .address-and-ua{margin-left:25px}.section119 .phone-and-address{text-align:right}.section119 .phone1,.section119 .phone2{font-size:22px;margin-bottom:5px}.section119 .sn:hover,.section119 a.phone1:hover,.section119 a.phone2:hover{opacity:.7}.section119 .phone1.show_phone_icon:before,.section119 .phone2.show_phone_icon:before{content:"\f095";padding-right:5px;display:inline-block;font:14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.section119 a.phone1,.section119 a.phone2{color:inherit;text-decoration:none;display:block}.section119 .tobiz_link{display:none}.section119 .policy{display:block}.section119 .policy2_popup{display:none;margin-top:10px;box-sizing:border-box;padding:20px;border:1px solid #e2e2e2;background:#fff}.section119.dark .policy2_popup{color:#000}.section119 .address1{font-size:14px;margin-bottom:10px}.section119 .policy2{cursor:pointer;display:inline;border-bottom:1px dashed;font-size:14px}.section119 .policy2:hover{border-bottom:1px solid transparent}.section119 .policy2_title{font-size:18px;font-weight:700}.section119 .social_icons{display:flex;justify-content:flex-end;margin-top:10px;margin-bottom:5px;flex-wrap:wrap;right:0}.section119 .sn{display:flex;justify-content:center;align-items:center;width:34px;height:34px;font-size:20px;margin-left:10px;margin-bottom:10px;font-family:FontAwesome;color:#fff;text-decoration:none;transition:.3s}.section119 .social_icons.icon-circle .sn{border-radius:50%}.section119 .txt1{margin-top:40px;text-align:center}.section119 .sn-vk{background:#507299}.section119 .sn-tg{background-color:#08c}.section119 .sn-tg:after{content:'\f1d9'}.section119 .sn-vk:after{content:''}.section119 .sn-ins{background:#f8cc01;background:-o-linear-gradient(45deg,#f8cc01 0,#e8102b 51%,#7d39b0 100%);background:linear-gradient(45deg,#f8cc01 0,#e8102b 51%,#7d39b0 100%)}.section119 .sn-ins:after{content:''}.section119 .sn-whatsup{background:#3ebe2b}.section119 .sn-whatsup:after{content:''}.section119 .sn-fb{background:#405d9a}.section119 .sn-fb:after{content:''}.section119 .sn-youtube{background:#e62117}.section119 .sn-youtube:after{content:''}.section119 .sn-o:after{content:''}.section119 .sn-o{background:#ee7808}.section119 .sn-vimeo:after{content:"\f27d"}.section119 .sn-vimeo{background:#00adef}.section119 .sn-viber{position:relative;background-color:#7d3daf}.section119 .sn-viber:after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:url(/img/icons8-viber.svg) center/80% no-repeat}.section119 .sn.hidden{display:none}.section119 .search_form{width:90%;height:50px;display:flex}.section119 .search{height:38px;width:100%;position:relative;display:flex;align-items:center}.section119 .search_input:focus{outline:0;opacity:1}.section119 .search button{position:absolute;right:0;top:0;width:36px;height:38px;border:none;font-size:16px;background:0 0;color:#ccc;border-radius:5px}.section119 .search_input{height:38px;width:100%;background-color:#fff;padding:0 40px 0 10px;border:1px solid #ccc;opacity:.8;box-sizing:border-box;color:#333;border-radius:5px}.section119 .search button i{color:#999;animation:1.3s infinite alternate color_change}.section119 .find_popup .result_title{font-size:18px;margin-bottom:10px}.section119 .find_popup{box-sizing:border-box;display:none;width:74%;position:absolute;right:0;top:50px;border:1px solid #ccc;padding:20px;background:#fff;z-index:90;max-height:500px;overflow:auto;color:#333}.section119 .find_popup .find_item:hover{background:#f5f5f5}.section119 .find_popup .find_item{padding:5px 20px;cursor:pointer}.section119 .find_popup .find_item a{font-size:16px}.section119 .find_popup .close{width:15px;height:15px;background:url('/img/editor_icons/cancel.svg') center/100% no-repeat;cursor:pointer;position:absolute;right:10px;top:10px}.section119 .logo_img{max-width:270px;width:auto}@media (max-width:960px){.section119 .section_inner{flex-direction:column;align-content:center;text-align:center}.section119 .address-and-ua{margin-left:20px;width:100%}.section119 .social_icons{width:100%;position:static;flex-wrap:wrap;justify-content:center;margin-right:0;margin-top:5px;padding-top:5px}.section119 .phone-and-address{padding-bottom:0;width:100%;max-width:unset;margin-left:10px;display:flex;flex-direction:column;align-items:center}.section119 .find_popup{width:94%;text-align:left;top:140px;left:3%}.section119 .address1,.section119 .address1 *,.section119 .text1,.section119 .text1 *{font-size:14px!important}.section119 .text1{word-break:break-word}.section119 .phone1,.section119 .phone1 span,.section119 .phone2,.section119 .phone2 span{font-size:15px!important;width:auto}.section119 .section_inner{display:flex;align-items:center}}@media (max-width:800px){.section119 .logo_img,.section119 .logo_img img,.section119 .logo_text{max-width:160px}.section119 .logo_img img{max-width:100%}.section119 .phone1,.section119 .phone1 span,.section119 .phone2,.section119 .phone2 span{width:auto}.section119 .width1170 .address-and-ua{max-width:45%}.section119 .logo_img{width:22%}.section119 .sn{width:25px;height:25px;line-height:25px}.section119 .phone-and-address{margin-left:10px;width:25%}.section119 .address-and-ua{width:50%;margin-left:20px}.section119 .social_icons{margin-right:0;margin-top:5px;padding-top:5px}.section119 .address1,.section119 .address1 *,.section119 .policy2,.section119 .policy2 span{font-size:14px!important;line-height:20px}}@media (max-width:640px){.section119 .width1170 .address-and-ua{max-width:100%}.section119 .logo_img{width:200px;display:flex;justify-content:center}.section119 .logo_text{float:none;margin:0 auto;width:auto;text-align:center}.section119 .menu-and-phone-and-btn{margin:25px auto 0;float:none;width:auto}.section119 .address-and-ua{float:none;margin:0 auto;width:94%;text-align:center}.section119 .phone-and-address{display:flex;flex-direction:column;align-items:flex-end;margin-right:0;width:auto}.section119 .section_inner{justify-content:space-between}.section119 .logo_text,.section119.fixed_top .logo_img,.section119.fixed_top .policy2,.section119.fixed_top .social_icons{display:none}.section119.fixed_top{padding:5px 0}.section119{padding:10px 0}.section119 .search_form{display:none;margin:0 auto}.section119.fixed_top .section_inner{display:flex}}@media (max-width:480px){.section119 .section_inner{flex-direction:column}.section119 .phone-and-address{align-items:center;margin-left:0}.section119 .phone-and-address,.section119 .phone1,.section119 .phone1 span,.section119 .phone2,.section119 .phone2 span,.section119 .text1,.section119 .text1 *{text-align:center}.section119 .phone1,.section119 .phone2{margin-top:10px;margin-bottom:10px}.section119 .social_icons{justify-content:center}}@media (max-width:440px){.section119 .section_inner,.section119.fixed_top .section_inner{flex-direction:column}}@media (max-width:400px){.section119 .section_inner,.section119.fixed_top .section_inner{flex-direction:column}.section119 .phone-and-address{align-items:center;margin-top:10px}}
+    </style>
+    <!-- Tobiz modules styles -->
+
+
+    <script type="text/javascript" src="335576.lp.tobiz.net_files/script.min.js"></script>
+    <script type="text/javascript" src="335576.lp.tobiz.net_files/auth.js"></script>
+    <script type="text/javascript">tobiz.blocks = [];</script>
+
+
+    <meta content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <style>
+        <link rel="stylesheet" href="base.css">
+    </style>
+
+
+    <meta name="format-detection" content="telephone=no">
+
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title></title>
+
+
+    <meta property="og:image" content="/img/500x0/f4c02f04bd39c153623a1190a5ef9ea2.png">
+
+
+    <script type="text/javascript">
+        $(function () {
+
+
+            (function(){
+                var app = {
+                    cookie: {
+                        set: function(name,value,days) {
+                            var expires = "";
+                            if (days) {
+                                var date = new Date();
+                                date.setTime(date.getTime() + (days*24*60*60*1000));
+                                expires = "; expires=" + date.toUTCString();
+                            }
+                            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+                        },
+                        get: function (name) {
+                            var nameEQ = name + "=";
+                            var ca = document.cookie.split(';');
+                            for(var i=0;i < ca.length;i++) {
+                                var c = ca[i];
+                                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                            }
+                            return null;
+                        },
+                        remove: function (name) {
+                            document.cookie = name+'=; Max-Age=-99999999;';
+                        }
+                    },
+                    url: {
+                        getParams: function(u){
+                            var url = u || window.location.search,
+                                queryString = url.split('?')[1],
+                                urlParams={};
+                            url = url.split('#')[0];
+                            if (!queryString) {
+                                if (url.search('=') !== false) {
+                                    queryString = url;
+                                }
+                            }
+                            if (queryString) {
+                                var keyValuePairs = queryString.split('&')
+                                for (var i = 0; i < keyValuePairs.length; i++) {
+                                    var keyValuePair = keyValuePairs[i].split('=')
+                                    var paramName = keyValuePair[0]
+                                    var paramValue = keyValuePair[1] || ''
+                                    urlParams[paramName] = decodeURIComponent(paramValue.replace(/\+/g, ' '));
+                                }
+                            }
+                            return urlParams;
+                        }
+                    },
+                    int: function(){
+
+
+                        if(window.location.search=='?personal_data=2'){
+                                window.location.href="/personal-data-2/";
+                        }
+                        if(window.location.search=='?personal_data=1'){
+                                window.location.href="/personal-data-1/";
+                        }
+                        if(window.location.search=='?cookie-policy=1'){
+                                window.location.href="/cookie-policy/";
+                        }
+//                                var get = $.extend({}, JSON.parse(app.cookie.get('tobiz_get_params')), app.url.getParams());
+//                                app.cookie.set('tobiz_get_params', JSON.stringify(get));
+
+
+                        if(app.cookie.get('tobiz_enter_point')===null){
+                            app.cookie.set('tobiz_enter_point', window.location.href);
+                        }
+
+
+
+
+                    }
+                };
+
+                app.int();
+                window.app = app;
+
+            })();
+
+
+            $('body').on('submit', 'form[action="handler.php"]', function (event) {
+                event.preventDefault();
+
+
+                var send = 1;
+                if (!event.target.checkValidity()) {
+                    $('form input:visible[required="required"]').each(function () {
+                        if(!send) return false;
+                        if (!this.validity.valid) {
+                            $(this).focus();
+                            send = 0;
+                        }
+                    });
+                    if(!send) return;
+                }
+
+
+
+                var this_form = $(this);
+                if (!$(this).children("input[name=project_id]").length)
+                    $(this).prepend('<input type="hidden" name="project_id" value="' + window.tobiz.project_id + '">');
+                if (!$(this).children("input[name=page_id]").length)
+                    $(this).prepend('<input type="hidden" name="page_id" value="' + window.tobiz.rep_id + '">');
+                if (!$(this).children("input[name=referrer]").length)
+                    $(this).prepend('<input type="hidden" name="referrer" value="' + document.referrer + '">');
+                if (!$(this).children("input[name=user_id]").length)
+                    $(this).prepend('<input type="hidden" name="user_id" value="' + window.tobiz.user_id + '">');
+
+                if ($(this).find("[data-action]").size()) {
+                    $(this).prepend('<input type="hidden" name="product_name" value="' + $(this).find("[data-product_name]").data('product_name') + '">');
+                    $(this).prepend('<input type="hidden" name="action" value="' + $(this).find("[data-action]").data('action') + '">');
+                    $(this).prepend('<input type="hidden" name="amount" value="' + $(this).find("[data-action]").data('amount') + '">');
+                    $(this).prepend('<input type="hidden" name="url" value="' + $(this).find("[data-action]").data('url') + '">');
+                } else {
+                    console.log('not found');
+                }
+
+                if (typeof(VK) != 'undefined' && $(this).find("[data-vk_pixel]").size() && $(this).find("[data-vk_pixel]").data('vk_pixel')!='undefined' &&  $(this).find("[data-vk_pixel]").data('vk_pixel')!='') {
+                    console.log('vk_pixel_event: '+ $(this).find("[data-vk_pixel]").data('vk_pixel'));
+                    VK.Retargeting.Event($(this).find("[data-vk_pixel]").data('vk_pixel'));
+                } else {
+                    console.log('vk_pixel not found');
+                }
+
+
+                if (typeof(gtag) != 'undefined' && $(this).find("[data-gtag_event]").size() && $(this).find("[data-gtag_event]").data('gtag_event')!='undefined' &&  $(this).find("[data-gtag_event]").data('gtag_event')!='') {
+                    console.log('gtag_event: '+ $(this).find("[data-gtag_event]").data('gtag_event'));
+                    gtag('event', $(this).find("[data-gtag_event]").data('gtag_event')+'');
+                } else {
+                    console.log('gtag_event not found');
+                }
+
+
+
+                if (typeof(fbq) != 'undefined' && $(this).find("[data-fb_pixel]").size() && $(this).find("[data-fb_pixel]").data('fb_pixel')!='undefined' &&  $(this).find("[data-fb_pixel]").data('fb_pixel')!='') {
+                    console.log('fb_pixel_event: '+ $(this).find("[data-fb_pixel]").data('fb_pixel'));
+                    fbq('trackCustom', $(this).find("[data-fb_pixel]").data('fb_pixel'));
+                } else {
+                    console.log('fb_pixel not found');
+                }
+
+
+
+                var formData = new FormData($(this)[0]);
+                var this_block = $(this).closest('.section');
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url: "/handler.php",
+                    data: formData,
+//                            async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }).done(function (data) {
+                    if (data.status == 'OK') {
+                        window.modal.getModal('Успех', data.msg);
+                        //alert(data.msg);
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        window.basket.clean();
+                        window.basket.hideForm();
+
+                        $('.popup_form').hide();
+                    }
+                    if (data.status == 'ERROR') {
+                        window.modal.getModal('Ошибка', data.msg);
+                        //alert(data.msg);
+                    }
+                    if (data.status == 'JC') {
+
+                        $('body').append(data.form);
+                        $('#jc_form').submit();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                    }
+
+                    if (data.status == 'PAYEER') {
+                                    $('body').append(data.form);
+                        $('#payeer_form').submit();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                    }
+
+
+
+
+                    if (data.status == 'SR') {
+                                    $('body').append(data.form);
+                        $('#sr_form').submit();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                    }
+                    if (data.status == 'GR') {
+                                    $('body').append(data.form);
+                        $('#gr_form').submit();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                    }
+                    if (data.status == 'RK') {
+                                    this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        window.location.href = data.url;
+                    }
+                    if (data.status == 'SB' || data.status == 'YooKassa') {
+                                    this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+
+                        window.basket.clean();
+                        window.basket.hideForm();
+
+                        window.location.href = data.link;
+                    }
+                    if (data.status == 'INTERKASSA') {
+                                    this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        window.location.href = data.url;
+                    }
+                    if (data.status == 'INTERKASSA') {
+                                    this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        window.location.href = data.url;
+                    }
+
+                    if (data.status == 'tinkoff') {
+
+
+                        window.location.href = data.link;
+                    }
+
+
+                    if (data.status == 'redirect') {
+                                    this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+
+
+                        window.basket.clean();
+                        window.basket.hideForm();
+//                                window.basket.renderForm();
+//                                window.basket.renderBtn();
+//                                window.basket.hideBtn();
+                        $('.popup_form').hide();
+
+                        window.location.href = data.url;
+                    }
+                    if (data.status == 'thanks') {
+                                    this_block.find('.popup_thanks').show();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        $('.popup_form').hide();
+                        this_block.find('.extra_info_block_wrapper').hide();
+                    }
+
+                    if (data.status == 'preorder_thanks') {
+
+
+                        $('.popup_thanks').show();
+                        $('.popup_form').hide();
+                    }
+
+                    if (data.status == 'flexThanks') {
+
+                        let thanksTitle = $('body').find('input[data-action="flexThanks"]').data('thanks_title');
+                        let thanksText = $('body').find('input[data-action="flexThanks"]').data('thanks_text');
+
+                        if (!thanksTitle || typeof(thanksTitle) == 'undefined') {
+                            thanksTitle = 'Спасибо!';
+                        }
+                        if (!thanksText || typeof(thanksText) == 'undefined') {
+                            thanksTitle = 'Сообщение успешно отправлено';
+                        }
+
+                        $('body').find('.modal_close').click();
+
+                        window.modal.getModal('Спасибо', 'Сообщение успешно отправлено.');
+                    }
+                    if (data.status == 'thanks_order_complete') {
+                                    this_block.find('.popup_thanks').show();
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        window.basket.clean();
+                        window.basket.hideForm();
+                        window.basket.renderForm();
+                        window.basket.renderBtn();
+                        window.basket.hideBtn();
+                        //alert('Спасибо ваш заказ успешно оформлен!');
+                        $('.popup_form').hide();
+                        window.basket.renderThanks();
+                    }
+                    if (data.status == 'already_sent') {
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        $('.popup_form').hide();
+                        window.modal.getModal('Ошибка', data.msg);
+                        //alert(data.msg);
+                    }
+                }).error(function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError)
+                });
+                console.log('wrf');
+                return false;
+            })
+            $('body').on('submit', 'form.add_comment', function (event) {
+                event.preventDefault();
+                var this_form = $(this);
+                var formData = new FormData($(this)[0]);
+                var this_block = $(this).closest('.section');
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url: "/add_comment.php",
+                    data: formData,
+//                            async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }).done(function (data) {
+                    if (data.status == 'OK') {
+                        this_form.each(function () {
+                            $(this)[0].reset();
+                        })
+                        window.modal.getModal('Успех', data.msg);
+                        //alert(data.msg);
+                        window.location.href="#comments";
+                        window.location.reload();
+
+
+
+                    }
+                    if (data.status == 'ERROR') {
+                        window.modal.getModal('Ошибка', data.msg);
+                    }
+
+                }).error(function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError)
+                });
+                return false;
+            })
+
+
+        })
+    </script>
+
+    <!-- Google Fonts - Selective Loader -->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <style id="page_style">
+
+
+        :root{}
+
+    </style>
+
+
+    <style></style>
+
+    <link rel="stylesheet" href="335576.lp.tobiz.net_files/icon.css" type="text/css">
+    <link rel="stylesheet" href="335576.lp.tobiz.net_files/fa.min.css" type="text/css">
+    <style id="OTgwMDAwMDE5OTk5OTUw"></style>
+    <script type="text/javascript" charset="utf-8" defer="defer" async=""
+            src="blob:https://335576.lp.tobiz.net/23490a25-0e2d-47ce-aa27-15c73c345d8d" data-params="{}"></script>
+</head>
+
+
+<body class="editor_false  lang_ru    copy_bottom not_ie">
+<div class="alerts"></div>
+
+
+<div id="wrapper" class="" style="padding-top: 0px;">
+
+    <div data-hcolor="#dd4803" class="section   section103"
+         style="background-color:#f2f2f2;padding-top:20px;padding-bottom:20px" data-id="10759936" id="b_10759936"><a
+            name="a_10759936"></a>
+        <div class="section_inner  all_border width1170">
+            <div class="slogan">
+                <div class="text1"><span style="font-size:18px">Сайт для инди-разработчиков от инди-разработчиков</span><br
+                        type="_moz"></div>
+                <div class="text2"><br></div>
+            </div>
+            <div class="logo_img"><img loading="lazy"
+                                       src="335576.lp.tobiz.net_files/f4c02f04bd39c153623a1190a5ef9ea2.png"
+                                       srcset="335576.lp.tobiz.net_files/f4c02f04bd39c153623a1190a5ef9ea2.png 1x, 335576.lp.tobiz.net_files/f4c02f04bd39c153623a1190a5ef9ea2_002.png 2x">
+            </div>
+            <div class="phone-and-btn">
+                <div class="phone1 zphone "><br></div>
+                <a href="https://335576.lp.tobiz.net/login" class="btn1  animation    hover" data-hcolor="#dd5000"
+                   style="color: rgb(221, 80, 0); border-radius: 1.7em; box-shadow: rgba(0, 0, 0, 0.3) 0em 0em 0.4em 0.2em; font-size: 24px; background-color: transparent;"
+                   data-color="rgb(221, 72, 3)">Вход/Регистрация</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="section  section119  dark" style="background-color:#000;padding-top:40px;padding-bottom:40px"
+         data-id="10773064" id="b_10773064"><a name="a_10773064"></a>
+        <div class="section_inner width1170">
+            <div class="logo_img"><img loading="lazy"
+                                       src="335576.lp.tobiz.net_files/f58323c27b5a4d8d3415ae90bfb344be.png"
+                                       srcset="335576.lp.tobiz.net_files/f58323c27b5a4d8d3415ae90bfb344be.png 1x, 335576.lp.tobiz.net_files/f58323c27b5a4d8d3415ae90bfb344be_002.png 2x"
+                                       alt="Команда средней свежести"></div>
+            <div class="address-and-ua">
+                <div class="address1">ООО «Команда средней свежести», 123456, г.Смоленск, ул. Трудовая 1, офис 1<br>ИНН
+                    1234567890 ОГРН 123456789012<br type="_moz"></div>
+                <div class="policy2">Политика конфиденциальности</div>
+            </div>
+            <div class="phone-and-address">
+                <div class="phone1 zphone show_phone_icon">+7(800)555-35-35<br type="_moz"></div>
+                <div class="text1">Звонок по России платный<br type="_moz"></div>
+                <a target="_blank" href="https://tobiz.net/" class="tobiz_link ">Сделано на платформе TOBIZ.NET</a>
+                <div class="social_icons icon-circle"><a target="_blank" style="background:#fff;color:#000;"
+                                                         class="sn sn-vk  link_vk" href=""></a> <a target="_blank"
+                                                                                                   style="background:#fff;color:#000;"
+                                                                                                   class="sn sn-ins  hidden link_ins"
+                                                                                                   href=""></a> <a
+                        target="_blank" style="background:#fff;color:#000;" class="sn sn-whatsup  hidden link_whatsup"
+                        href=""></a> <a target="_blank" style="background:#fff;color:#000;"
+                                        class="sn sn-fb  hidden link_fb" href=""></a> <a target="_blank"
+                                                                                         style="background:#fff;color:#000;"
+                                                                                         class="sn sn-youtube  link_youtube"
+                                                                                         href="https://www.youtube.com/channel/UCu8J7QLEZcS7QPb2z_ceCLg"></a>
+                    <a target="_blank" style="background:#fff;color:#000;" class="sn sn-vimeo  link_vimeo" href=""></a>
+                    <a target="_blank" style="background:#fff;color:#000;" class="sn sn-rutube  link_rutube" href="">
+                        <svg aria-hidden="true" focusable="false" role="img" viewBox="0 0 20 24" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill="currentColor"
+                                  d="M13.9025 6H0V21H3.86952V16.1199H11.2841L14.6671 21H19L15.2695 16.0975C16.4281 15.9176 17.2622 15.4903 17.772 14.8156C18.2817 14.141 18.5366 13.0615 18.5366 11.6222V10.4978C18.5366 9.64318 18.444 8.96855 18.2817 8.45125C18.1195 7.93403 17.8415 7.48425 17.4476 7.07946C17.0305 6.69715 16.5671 6.42729 16.011 6.24737C15.4549 6.08995 14.7597 6 13.9025 6ZM13.2769 12.8141H3.86952V9.30582H13.2769C13.8098 9.30582 14.1805 9.3958 14.3659 9.55321C14.5512 9.71062 14.6671 10.003 14.6671 10.4303V11.6897C14.6671 12.1395 14.5512 12.4318 14.3659 12.5892C14.1805 12.7466 13.8098 12.8141 13.2769 12.8141Z"></path>
+                        </svg>
+                    </a> <a target="_blank" style="background:#fff;color:#000;" class="sn sn-zen  link_zen" href="">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.143 32.143" width="45" height="45">
+                            <path fill="currentColor"
+                                  d="M19.172 19.172c-2.525 2.605 -2.71 5.855 -2.927 12.971 6.636 0 11.216 -0.023 13.58 -2.319 2.297 -2.364 2.319 -7.163 2.319 -13.58 -7.118 0.23 -10.366 0.402 -12.971 2.927M0 16.243c0 6.417 0.023 11.216 2.319 13.58 2.364 2.297 6.944 2.319 13.58 2.319 -0.23 -7.118 -0.402 -10.366 -2.927 -12.971 -2.605 -2.525 -5.855 -2.71 -12.971 -2.927M15.899 0C9.275 0 4.683 0.023 2.319 2.319 0.023 4.683 0 9.482 0 15.899c7.118 -0.23 10.366 -0.402 12.971 -2.927 2.525 -2.605 2.71 -5.855 2.927 -12.971m3.272 12.971C16.645 10.366 16.462 7.118 16.243 0c6.636 0 11.216 0.023 13.58 2.319 2.297 2.364 2.319 7.163 2.319 13.58 -7.118 -0.23 -10.366 -0.402 -12.971 -2.927"></path>
+                            <path fill="transparent"
+                                  d="M32.143 16.243v-0.344c-7.118 -0.23 -10.366 -0.402 -12.971 -2.927 -2.525 -2.605 -2.71 -5.855 -2.927 -12.971h-0.344c-0.23 7.118 -0.402 10.366 -2.927 12.971 -2.605 2.525 -5.855 2.71 -12.971 2.927v0.344c7.118 0.23 10.366 0.402 12.971 2.927 2.525 2.605 2.71 5.855 2.927 12.971h0.344c0.23 -7.118 0.402 -10.366 2.927 -12.971 2.605 -2.525 5.855 -2.71 12.971 -2.927"></path>
+                        </svg>
+                    </a> <a target="_blank" style="background:#fff;color:#000;" class="sn sn-o  hidden link_o"
+                            href=""></a> <a target="_blank" style="background:#fff;color:#000;"
+                                            class="sn sn-viber  hidden link_viber" href="">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="viber"
+                             class="svg-inline--fa fa-viber fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 512 512">
+                            <path fill="currentColor"
+                                  d="M444 49.9C431.3 38.2 379.9.9 265.3.4c0 0-135.1-8.1-200.9 52.3C27.8 89.3 14.9 143 13.5 209.5c-1.4 66.5-3.1 191.1 117 224.9h.1l-.1 51.6s-.8 20.9 13 25.1c16.6 5.2 26.4-10.7 42.3-27.8 8.7-9.4 20.7-23.2 29.8-33.7 82.2 6.9 145.3-8.9 152.5-11.2 16.6-5.4 110.5-17.4 125.7-142 15.8-128.6-7.6-209.8-49.8-246.5zM457.9 287c-12.9 104-89 110.6-103 115.1-6 1.9-61.5 15.7-131.2 11.2 0 0-52 62.7-68.2 79-5.3 5.3-11.1 4.8-11-5.7 0-6.9.4-85.7.4-85.7-.1 0-.1 0 0 0-101.8-28.2-95.8-134.3-94.7-189.8 1.1-55.5 11.6-101 42.6-131.6 55.7-50.5 170.4-43 170.4-43 96.9.4 143.3 29.6 154.1 39.4 35.7 30.6 53.9 103.8 40.6 211.1zm-139-80.8c.4 8.6-12.5 9.2-12.9.6-1.1-22-11.4-32.7-32.6-33.9-8.6-.5-7.8-13.4.7-12.9 27.9 1.5 43.4 17.5 44.8 46.2zm20.3 11.3c1-42.4-25.5-75.6-75.8-79.3-8.5-.6-7.6-13.5.9-12.9 58 4.2 88.9 44.1 87.8 92.5-.1 8.6-13.1 8.2-12.9-.3zm47 13.4c.1 8.6-12.9 8.7-12.9.1-.6-81.5-54.9-125.9-120.8-126.4-8.5-.1-8.5-12.9 0-12.9 73.7.5 133 51.4 133.7 139.2zM374.9 329v.2c-10.8 19-31 40-51.8 33.3l-.2-.3c-21.1-5.9-70.8-31.5-102.2-56.5-16.2-12.8-31-27.9-42.4-42.4-10.3-12.9-20.7-28.2-30.8-46.6-21.3-38.5-26-55.7-26-55.7-6.7-20.8 14.2-41 33.3-51.8h.2c9.2-4.8 18-3.2 23.9 3.9 0 0 12.4 14.8 17.7 22.1 5 6.8 11.7 17.7 15.2 23.8 6.1 10.9 2.3 22-3.7 26.6l-12 9.6c-6.1 4.9-5.3 14-5.3 14s17.8 67.3 84.3 84.3c0 0 9.1.8 14-5.3l9.6-12c4.6-6 15.7-9.8 26.6-3.7 14.7 8.3 33.4 21.2 45.8 32.9 7 5.7 8.6 14.4 3.8 23.6z"></path>
+                        </svg>
+                    </a> <a target="_blank" style="background:#fff;color:#000;" class="sn sn-tg  hidden link_tg"
+                            href=""></a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="policy2_popup">
+                <div class="policy2_title">Политика конфиденциальности</div>
+                <div class="policy2_body"><p>Данный
+                    сайт абсолютно бесполезен и не несет смысловой нагрузки. Вот вам видео с
+                    котиком
+                    https://youtu.be/-51AfyMqnpI?list=PLNTK9welGzDynukDlMqLGqY3rlaMPOJOl<br type="_moz"></p></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    (function(){
+
+        var resources_css = [
+            'https://fonts.googleapis.com/icon?family=Material+Icons&display=swap',
+            '/fonts/font-awesome-4.7.0/css/fa.min.css'
+        ];
+
+        var resource = [];
+        _.each(resources_css, function(element, index) {
+            resource[index] = document.createElement('link');
+            resource[index].setAttribute("rel", "stylesheet");
+            resource[index].setAttribute("href", element);
+            resource[index].setAttribute("type", "text/css");
+
+            var head = document.getElementsByTagName('head')[0];
+            head.appendChild(resource[index]);
+        });
+
+    })();
+
+</script>
+
+
+<script type="text/javascript" src="335576.lp.tobiz.net_files/mask.min.js" defer="defer"></script>
+<script type="text/javascript" src="335576.lp.tobiz.net_files/lazyload.min.js"></script>
+<script type="text/javascript" src="335576.lp.tobiz.net_files/anime.min.js" defer="defer"></script>
+
+
+</body>
+</html>
