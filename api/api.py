@@ -5,6 +5,8 @@ from data import db_session
 from game_resources import GameResource, GameListResource
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "IfYoUhAvErEaDtHiSyOuArEgEy"
+
 api = Api(app)
 api.add_resource(GameResource, "/game/<int:game_id>")
 api.add_resource(GameListResource, "/games", "/games/<int:author_id>")
