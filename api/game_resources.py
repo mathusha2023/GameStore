@@ -2,6 +2,7 @@ from flask import jsonify, request
 from flask_restful import reqparse, abort, Resource
 from sqlalchemy import desc
 import os
+import shutil
 import pickle
 from data import db_session
 from data.games import Game
@@ -28,6 +29,17 @@ class GameResource(Resource):
         return jsonify(
             game.to_dict()
         )
+
+    def delete(self, game_id):
+        abort_if_game_not_found(game_id)
+        session = db_session.create_session()
+        game: Game = session.query(Game).get(game_id)
+        for img in game.images:
+            session.delete(img)
+        shutil.rmtree(f"db/games/{game_id}")
+        session.delete(game)
+        session.commit()
+        return jsonify({"message": "ok"})
 
 
 class GameListResource(Resource):
