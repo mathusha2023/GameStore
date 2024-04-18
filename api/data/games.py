@@ -7,8 +7,7 @@ from .db_session import SqlAlchemyBase
 class Game(SqlAlchemyBase, SerializerMixin):
     __tablename__ = 'games'
 
-    id = sqlalchemy.Column(sqlalchemy.Integer,
-                           primary_key=True, autoincrement=True)
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     title = sqlalchemy.Column(sqlalchemy.String)
     desc = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     prev = sqlalchemy.Column(sqlalchemy.String)
