@@ -20,7 +20,7 @@ class GameResource(Resource):
     def __init__(self):
         super().__init__()
         self.parser = reqparse.RequestParser()
-        self.parser.add_argument("rate", required=True)
+        self.parser.add_argument("rate", required=True, type=int)
 
     def get(self, game_id):
         abort_if_game_not_found(game_id)
@@ -38,6 +38,16 @@ class GameResource(Resource):
             session.delete(img)
         shutil.rmtree(f"db/games/{game_id}")
         session.delete(game)
+        session.commit()
+        return jsonify({"message": "ok"})
+
+    def put(self, game_id):
+        abort_if_game_not_found(game_id)
+        args = self.parser.parse_args()
+        session = db_session.create_session()
+        game: Game = session.query(Game).get(game_id)
+        game.rate = round((game.rate * game.votes + args["rate"]) / (game.votes + 1), 1)
+        game.votes += 1
         session.commit()
         return jsonify({"message": "ok"})
 
