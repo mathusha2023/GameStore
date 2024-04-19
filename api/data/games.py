@@ -5,7 +5,7 @@ from .db_session import SqlAlchemyBase
 
 
 class Game(SqlAlchemyBase, SerializerMixin):
-    __tablename__ = 'games'
+    __tablename__ = "games"
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
     title = sqlalchemy.Column(sqlalchemy.String)
@@ -14,5 +14,8 @@ class Game(SqlAlchemyBase, SerializerMixin):
     file = sqlalchemy.Column(sqlalchemy.String)
     author = sqlalchemy.Column(sqlalchemy.Integer, index=True)
     rate = sqlalchemy.Column(sqlalchemy.Float)
-    votes = sqlalchemy.Column(sqlalchemy.Integer)
     images = orm.relationship("Image")
+    comments = orm.relationship("Comment")
+
+    def update_rate(self):
+        self.rate = round(sum([comment.mark for comment in self.comments]) / len(self.comments), 1)

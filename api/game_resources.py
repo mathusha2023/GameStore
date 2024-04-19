@@ -7,6 +7,7 @@ import pickle
 from data import db_session
 from data.games import Game
 from data.images import Image
+from data.comments import Comment
 
 
 def abort_if_game_not_found(game_id):
@@ -27,7 +28,9 @@ class GameResource(Resource):
     def __init__(self):
         super().__init__()
         self.parser = reqparse.RequestParser()
-        self.parser.add_argument("rate", required=True, type=int)
+        self.parser.add_argument("mark", required=True, type=int)
+        self.parser.add_argument("user", required=True, type=int)
+        self.parser.add_argument("message", required=True)
 
     def get(self, game_id):
         abort_if_game_not_found(game_id)
@@ -52,9 +55,17 @@ class GameResource(Resource):
         abort_if_game_not_found(game_id)
         args = self.parser.parse_args()
         session = db_session.create_session()
+        comment = session.query(Comment).filter(Comment.game_id == game_id, Comment.user == args["user"]).first()
+        if comment is None:
+            comment = Comment(game_id=game_id, user=args["user"])
+            comment.mark = args["mark"]
+            comment.message = args["message"]
+            session.add(comment)
+        else:
+            comment.mark = args["mark"]
+            comment.message = args["message"]
         game: Game = session.query(Game).get(game_id)
-        game.rate = round((game.rate * game.votes + args["rate"]) / (game.votes + 1), 1)
-        game.votes += 1
+        game.update_rate()
         session.commit()
         return jsonify({"message": "ok"})
 
@@ -101,7 +112,6 @@ class GameListResource(Resource):
         game.desc = args["desc"]
         game.author = args["author"]
         game.rate = 0.0
-        game.votes = 0
         game.file = file
         game.prev = prev
         session.add(game)
