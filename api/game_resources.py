@@ -16,6 +16,13 @@ def abort_if_game_not_found(game_id):
         abort(404, message=f"Game {game_id} not found")
 
 
+def load_file(file: tuple[str, bytes], filename):
+    fullname = f"{filename}.{file[0]}"
+    with open(fullname, "wb") as f:
+        f.write(file[1])
+    return fullname
+
+
 class GameResource(Resource):
     def __init__(self):
         super().__init__()
@@ -70,6 +77,7 @@ class GameListResource(Resource):
 
     def post(self):
         args = pickle.loads(request.data)
+        self.check_args(args)
         session = db_session.create_session()
         sp = session.query(Game).order_by(desc(Game.id)).limit(1).all()
         if not sp:
@@ -79,12 +87,12 @@ class GameListResource(Resource):
 
         os.mkdir(f"db/games/{i}")
         os.mkdir(f"db/games/{i}/images")
-        prev = self.load_file(args["prev"], f"db/games/{i}/preview")
-        file = self.load_file(args["file"], f"db/games/{i}/file")
+        prev = load_file(args["prev"], f"db/games/{i}/preview")
+        file = load_file(args["file"], f"db/games/{i}/file")
         for j in range(len(args["images"])):
             image = Image()
             image.game_id = i
-            image.img = self.load_file(args["images"][j], f"db/games/{i}/images/{j}")
+            image.img = load_file(args["images"][j], f"db/games/{i}/images/{j}")
             session.add(image)
 
         game = Game()
@@ -100,8 +108,33 @@ class GameListResource(Resource):
         session.commit()
         return jsonify({"message": "ok"})
 
-    def load_file(self, file: tuple[str, bytes], filename):
-        fullname = f"{filename}.{file[0]}"
-        with open(fullname, "wb") as f:
-            f.write(file[1])
-        return fullname
+    def check_args(self, args):
+        s = args.get("title", None)
+        if s is None or not isinstance(s, str):
+            abort(400, message="Incorrect arg title")
+
+        s = args.get("desc", None)
+        if s is None or not isinstance(s, str):
+            abort(400, message="Incorrect arg desc")
+
+        s = args.get("author", None)
+        if s is None or not isinstance(s, int):
+            abort(400, message="Incorrect arg author")
+
+        s = args.get("prev", None)
+        if s is None or not isinstance(s, (tuple, list)) or len(s) != 2 or not isinstance(s[0], str) or not isinstance(
+                s[1], bytes):
+            abort(400, message="Incorrect arg prev")
+
+        s = args.get("file", None)
+        if s is None or not isinstance(s, (tuple, list)) or len(s) != 2 or not isinstance(s[0], str) or not isinstance(
+                s[1], bytes):
+            abort(400, message="Incorrect arg file")
+
+        s = args.get("images", None)
+        if s is None or not isinstance(s, (tuple, list)):
+            abort(400, message="Incorrect arg images")
+        for i in s:
+            if not isinstance(i, (tuple, list)) or len(i) != 2 or not isinstance(i[0], str) or not isinstance(i[1],
+                                                                                                              bytes):
+                abort(400, message="Incorrect arg images")
