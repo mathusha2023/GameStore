@@ -4,7 +4,7 @@ import os
 from data.users import User
 from forms.registerform import RegisterForm
 from forms.loginform import LoginForm
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, login_required
 
 app = Flask(__name__)
 login_manager = LoginManager()
