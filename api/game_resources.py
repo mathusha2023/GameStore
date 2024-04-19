@@ -2,10 +2,12 @@ from flask import jsonify, request
 from flask_restful import reqparse, abort, Resource
 from sqlalchemy import desc
 import os
+import shutil
 import pickle
 from data import db_session
 from data.games import Game
 from data.images import Image
+from data.comments import Comment
 
 
 def abort_if_game_not_found(game_id):
@@ -15,11 +17,57 @@ def abort_if_game_not_found(game_id):
         abort(404, message=f"Game {game_id} not found")
 
 
+def load_file(file: tuple[str, bytes], filename):
+    fullname = f"{filename}.{file[0]}"
+    with open(fullname, "wb") as f:
+        f.write(file[1])
+    return fullname
+
+
 class GameResource(Resource):
     def __init__(self):
         super().__init__()
         self.parser = reqparse.RequestParser()
-        self.parser.add_argument("rate", required=True)
+        self.parser.add_argument("mark", required=True, type=int)
+        self.parser.add_argument("user", required=True, type=int)
+        self.parser.add_argument("message", required=True)
+
+    def get(self, game_id):
+        abort_if_game_not_found(game_id)
+        session = db_session.create_session()
+        game: Game = session.query(Game).get(game_id)
+        return jsonify(
+            game.to_dict()
+        )
+
+    def delete(self, game_id):
+        abort_if_game_not_found(game_id)
+        session = db_session.create_session()
+        game: Game = session.query(Game).get(game_id)
+        for img in game.images:
+            session.delete(img)
+        shutil.rmtree(f"db/games/{game_id}")
+        session.delete(game)
+        session.commit()
+        return jsonify({"message": "ok"})
+
+    def put(self, game_id):
+        abort_if_game_not_found(game_id)
+        args = self.parser.parse_args()
+        session = db_session.create_session()
+        comment = session.query(Comment).filter(Comment.game_id == game_id, Comment.user == args["user"]).first()
+        if comment is None:
+            comment = Comment(game_id=game_id, user=args["user"])
+            comment.mark = args["mark"]
+            comment.message = args["message"]
+            session.add(comment)
+        else:
+            comment.mark = args["mark"]
+            comment.message = args["message"]
+        game: Game = session.query(Game).get(game_id)
+        game.update_rate()
+        session.commit()
+        return jsonify({"message": "ok"})
 
 
 class GameListResource(Resource):
@@ -35,11 +83,12 @@ class GameListResource(Resource):
                 abort(400, message="Author value must be integer")
             games = session.query(Game).filter(Game.author == author)
         return jsonify(
-            dict(games=[item.to_dict(only=("title", "prev", "author", "rate")) for item in games])
+            dict(games=[item.to_dict(only=("id", "title", "prev", "author", "rate")) for item in games])
         )
 
     def post(self):
         args = pickle.loads(request.data)
+        self.check_args(args)
         session = db_session.create_session()
         sp = session.query(Game).order_by(desc(Game.id)).limit(1).all()
         if not sp:
@@ -49,12 +98,12 @@ class GameListResource(Resource):
 
         os.mkdir(f"db/games/{i}")
         os.mkdir(f"db/games/{i}/images")
-        prev = self.load_file(args["prev"], f"db/games/{i}/preview")
-        file = self.load_file(args["file"], f"db/games/{i}/file")
+        prev = load_file(args["prev"], f"db/games/{i}/preview")
+        file = load_file(args["file"], f"db/games/{i}/file")
         for j in range(len(args["images"])):
             image = Image()
             image.game_id = i
-            image.img = self.load_file(args["images"][j], f"db/games/{i}/images/{j}")
+            image.img = load_file(args["images"][j], f"db/games/{i}/images/{j}")
             session.add(image)
 
         game = Game()
@@ -63,15 +112,39 @@ class GameListResource(Resource):
         game.desc = args["desc"]
         game.author = args["author"]
         game.rate = 0.0
-        game.votes = 0
         game.file = file
         game.prev = prev
         session.add(game)
         session.commit()
         return jsonify({"message": "ok"})
 
-    def load_file(self, file: tuple[str, bytes], filename):
-        fullname = f"{filename}.{file[0]}"
-        with open(fullname, "wb") as f:
-            f.write(file[1])
-        return fullname
+    def check_args(self, args):
+        s = args.get("title", None)
+        if s is None or not isinstance(s, str):
+            abort(400, message="Incorrect arg title")
+
+        s = args.get("desc", None)
+        if s is None or not isinstance(s, str):
+            abort(400, message="Incorrect arg desc")
+
+        s = args.get("author", None)
+        if s is None or not isinstance(s, int):
+            abort(400, message="Incorrect arg author")
+
+        s = args.get("prev", None)
+        if s is None or not isinstance(s, (tuple, list)) or len(s) != 2 or not isinstance(s[0], str) or not isinstance(
+                s[1], bytes):
+            abort(400, message="Incorrect arg prev")
+
+        s = args.get("file", None)
+        if s is None or not isinstance(s, (tuple, list)) or len(s) != 2 or not isinstance(s[0], str) or not isinstance(
+                s[1], bytes):
+            abort(400, message="Incorrect arg file")
+
+        s = args.get("images", None)
+        if s is None or not isinstance(s, (tuple, list)):
+            abort(400, message="Incorrect arg images")
+        for i in s:
+            if not isinstance(i, (tuple, list)) or len(i) != 2 or not isinstance(i[0], str) or not isinstance(i[1],
+                                                                                                              bytes):
+                abort(400, message="Incorrect arg images")
