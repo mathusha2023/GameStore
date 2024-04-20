@@ -18,13 +18,27 @@
   <header>
     <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
-        <img src="{{url_for('static', filename='images/logo.png')}}" width="40" height="40">
-        <span class="fs-4">YStore</span>
+        <img src="{{url_for('static', filename='images/logo.png')}}" width="128" height="128">
+        <span style="font-size: 90px">YStore</span>
       </a>
-    </div>
-  </header>
+    </div> </header>
 
-{% block body %}{% endblock %}
+  <nav class="navbar navbar-expand-lg navbar-light bs-side-navbar" style="background-color:turquoise;">
+    <a class="navbar-brand" href="#"></a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Главная <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/mygames">Мои игры</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<aside>
+{% block body %}{% endblock %} </aside>
 
   <footer class="pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">

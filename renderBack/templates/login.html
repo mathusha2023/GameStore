@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
+<aside>
 <h1>Авторизация</h1>
 <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
@@ -23,7 +24,7 @@
     {% endfor %}
     </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-</form>
+</form> </aside>
 
 
 {% endblock %}
