@@ -9,7 +9,8 @@ from flask_login import LoginManager, login_user, login_required, logout_user
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config['SECRET_KEY'] = 'niggers'
+SECRET_KEY = 'IfYoUhAvErEaDtHiSyOuArEgEy'
+app.config['SECRET_KEY'] = SECRET_KEY
 
 
 def main():
@@ -68,11 +69,13 @@ def logout():
 
 
 @app.route("/create")
+@login_required
 def create():
     return render_template('create.html')
 
 
 @app.route("/mygames")
+@login_required
 def mygames():
     return render_template('mygames.html')
 

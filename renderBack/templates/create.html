@@ -1,10 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block body %}
+<form action="#" method="post" target="_blank">
+  <h2>Загрузить игру</h2>
+  <fieldset>
+    <legend>Основные данные</legend>
+      <label for="title">Название игры:</label>
+      <input type="text" name="title"  id="title" maxlength="24" required>
+      <div class="container col-md-6" style="float:right">
+          <p style="outline:2px solid #555; border-radius:5px; width: 300px; height: 300px;">
+          <img id="frame" src="" class="img-fluid" style="max-width: 300px; max-height: 300px;  " /></p>
 
-</body>
-</html>
+            <div class="mb-5">
+                <input class="form-control" type="file" id="formFile" onchange="preview()">
+            </div>
+      </div>
+      <script>
+            function checkImageSize(file) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+            if (img.width === img.height) {
+                resolve();
+            } else {
+                reject(new Error('Изображение должно быть квадратным!'));
+            }
+        };
+        img.src = URL.createObjectURL(file);
+    });
+}
+
+// Показ изображения (мне пришлось 30 минут читать гайды по джаваскрипту аааа)
+function preview() {
+    const file = event.target.files[0];
+    checkImageSize(file)
+        .then(() => {
+            frame.src = URL.createObjectURL(file);
+        })
+        .catch(error => {
+            alert(error.message);
+            document.getElementById('formfile').value = null;
+        });
+}
+
+// ОЧистка изображения
+function clearimage() {
+    document.getElementById('formfile').value = null;
+    frame.src = "";
+}
+      </script>
+  </fieldset>
+  <fieldset>
+      <legend>Дополнительные данные</legend>
+      <div>
+          <textarea name="desc" placeholder="Добавьте краткое описание игры" id="desc"></textarea>
+      </div>
+      <div>
+
+      </div>
+  </fieldset>
+    <fieldset>
+        <div>
+            <legend for="file" class="form-label">Zip архив с игрой </legend>
+            <input class="form-control form-control-lg" id="file" type="file">
+        </div>
+    </fieldset>
+    <div>
+            <button type="submit">Отправить</button>
+        </div>
+</form>
+{% endblock %}

@@ -15,6 +15,13 @@
         <span style="font-size: 90px">YStore</span>
       </a>
     </div>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Искать игры" aria-label="Поиск" aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/> </svg>
+        </button>
+    </div>
+
 </div>
 </header>
 <div id="main">
@@ -26,14 +33,19 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Главная <span class="sr-only"></span></a>
                     </li>
+                    {% if not current_user.is_anonymous %}
                     <li class="nav-item">
                         <a class="nav-link" href="/mygames">Мои игры</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/create">Создать игру</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
     </div>
-    <div id="contentik" style="display: flex; float: left; width:92%">
+    <div id="contentik" style="display: flex; justify-content: center">
         {% block body %}{% endblock %}
     </div>
 </div>
@@ -45,7 +57,7 @@
     <div class="row">
       <div class="col-12 col-md">
         <img class="mb-2" src="{{url_for('static', filename='images/devlogo.png')}}" alt="" width="214" height="64">
-        <small class="d-block mb-3 text-body-secondary">© 2024–2024</small>
+        <small class="d-block mb-3 text-body-secondary">© 2024–2069</small>
       </div>
       <div class="col-6 col-md">
         <h5>Features</h5>

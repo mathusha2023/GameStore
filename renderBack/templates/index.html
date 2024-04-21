@@ -4,8 +4,10 @@
     {% if current_user.is_anonymous %}
     <a href="/login" class="btn btn-dark">Войти/Зарегистрироваться</a>
     {% else %}
+    <p style="float: left; font-size:16px; margin: 36px" class="badge bg-primary text-wrap">Здравствуйте, {{current_user.login}}</p>
     <a href="/logout" class="btn btn-dark">Выйти</a>
     {% endif %}
 </div>
+
 
 {% endblock %}
