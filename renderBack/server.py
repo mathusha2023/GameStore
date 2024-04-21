@@ -58,14 +58,20 @@ def login():
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
+
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect("/")
+
+
 @app.route("/create")
 def create():
     return render_template('create.html')
+
+
 @app.route("/mygames")
 def mygames():
     return render_template('mygames.html')
