@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block body %}
 <div class="logbut">
-    <a href="/login" class="btn btn-dark">Войти/Зарегистрироваться</a> </div>
+    {% if current_user.is_anonymous %}
+    <a href="/login" class="btn btn-dark">Войти/Зарегистрироваться</a>
+    {% else %}
+    <a href="/logout" class="btn btn-dark">Выйти</a>
+    {% endif %}
+</div>
+
 {% endblock %}

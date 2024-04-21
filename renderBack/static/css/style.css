@@ -8,13 +8,21 @@ body {
 }
 
 .pricing-header {
-  max-width: 100%;
+  max-width: 1%;
 }
 .logbut{
     position:absolute;
     top:0%;
     right:0%;
     font-size:350%
+}
+.navigation{
+    display: inline-block;
+    float: left
+}
+.contentik {
+    display: inline-block;
+    float: left
 }
 @media (min-width: 992px) {
   .navbar,
@@ -25,7 +33,7 @@ body {
     flex-direction: column;
   }
   .navbar {
-    width: 0%;
+    width: 140px;
     height: 100vh;
     align-items: flex-start;
   }

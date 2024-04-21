@@ -4,7 +4,7 @@ import os
 from data.users import User
 from forms.registerform import RegisterForm
 from forms.loginform import LoginForm
-from flask_login import LoginManager, login_user, login_required
+from flask_login import LoginManager, login_user, login_required, logout_user
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -25,7 +25,7 @@ def index():
 
 
 @app.route('/register', methods=['GET', 'POST'])
-def reqister():
+def register():
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
@@ -52,7 +52,7 @@ def login():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.login == form.username.data).first()
         if user and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
+            login_user(user)
             return redirect("/")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
@@ -63,6 +63,12 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
+@app.route("/create")
+def create():
+    return render_template('create.html')
+@app.route("/mygames")
+def mygames():
+    return render_template('mygames.html')
 
 
 @login_manager.user_loader
