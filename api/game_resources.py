@@ -1,5 +1,5 @@
 from flask import jsonify, request
-from flask_restful import reqparse, abort, Resource
+from flask_restful import abort, Resource
 from sqlalchemy import desc
 import os
 import shutil
@@ -7,31 +7,10 @@ import pickle
 from data import db_session
 from data.games import Game
 from data.images import Image
-from data.comments import Comment
-
-
-def abort_if_game_not_found(game_id):
-    session = db_session.create_session()
-    game = session.query(Game).get(game_id)
-    if not game:
-        abort(404, message=f"Game {game_id} not found")
-
-
-def load_file(file: tuple[str, bytes], filename):
-    fullname = f"{filename}.{file[0]}"
-    with open(fullname, "wb") as f:
-        f.write(file[1])
-    return fullname
+from tools import abort_if_game_not_found, load_file
 
 
 class GameResource(Resource):
-    def __init__(self):
-        super().__init__()
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument("mark", required=True, type=int)
-        self.parser.add_argument("user", required=True, type=int)
-        self.parser.add_argument("message", required=True)
-
     def get(self, game_id):
         abort_if_game_not_found(game_id)
         session = db_session.create_session()
@@ -48,24 +27,6 @@ class GameResource(Resource):
             session.delete(img)
         shutil.rmtree(f"db/games/{game_id}")
         session.delete(game)
-        session.commit()
-        return jsonify({"message": "ok"})
-
-    def put(self, game_id):
-        abort_if_game_not_found(game_id)
-        args = self.parser.parse_args()
-        session = db_session.create_session()
-        comment = session.query(Comment).filter(Comment.game_id == game_id, Comment.user == args["user"]).first()
-        if comment is None:
-            comment = Comment(game_id=game_id, user=args["user"])
-            comment.mark = args["mark"]
-            comment.message = args["message"]
-            session.add(comment)
-        else:
-            comment.mark = args["mark"]
-            comment.message = args["message"]
-        game: Game = session.query(Game).get(game_id)
-        game.update_rate()
         session.commit()
         return jsonify({"message": "ok"})
 
