@@ -5,7 +5,7 @@ import os
 
 class GetFileResource(Resource):
     def get(self):
-        path = request.args.get("filepath", None)
+        path = request.args.get("p", None)
         if path is None:
             abort(400, message="Filepath argument required!")
         check_path = path.replace("\\", "/").split("/")

@@ -7,7 +7,7 @@ import pickle
 from data import db_session
 from data.games import Game
 from data.images import Image
-from tools import abort_if_game_not_found, load_file
+from tools import abort_if_game_not_found, load_file, check_args
 
 
 class GameResource(Resource):
@@ -49,7 +49,7 @@ class GameListResource(Resource):
 
     def post(self):
         args = pickle.loads(request.data)
-        self.check_args(args)
+        check_args(args)
         session = db_session.create_session()
         sp = session.query(Game).order_by(desc(Game.id)).limit(1).all()
         if not sp:
@@ -78,34 +78,3 @@ class GameListResource(Resource):
         session.add(game)
         session.commit()
         return jsonify({"message": "ok"})
-
-    def check_args(self, args):
-        s = args.get("title", None)
-        if s is None or not isinstance(s, str):
-            abort(400, message="Incorrect arg title")
-
-        s = args.get("desc", None)
-        if s is None or not isinstance(s, str):
-            abort(400, message="Incorrect arg desc")
-
-        s = args.get("author", None)
-        if s is None or not isinstance(s, int):
-            abort(400, message="Incorrect arg author")
-
-        s = args.get("prev", None)
-        if s is None or not isinstance(s, (tuple, list)) or len(s) != 2 or not isinstance(s[0], str) or not isinstance(
-                s[1], bytes):
-            abort(400, message="Incorrect arg prev")
-
-        s = args.get("file", None)
-        if s is None or not isinstance(s, (tuple, list)) or len(s) != 2 or not isinstance(s[0], str) or not isinstance(
-                s[1], bytes):
-            abort(400, message="Incorrect arg file")
-
-        s = args.get("images", None)
-        if s is None or not isinstance(s, (tuple, list)):
-            abort(400, message="Incorrect arg images")
-        for i in s:
-            if not isinstance(i, (tuple, list)) or len(i) != 2 or not isinstance(i[0], str) or not isinstance(i[1],
-                                                                                                              bytes):
-                abort(400, message="Incorrect arg images")
