@@ -6,7 +6,9 @@
     <legend>Основные данные</legend>
       <label for="title">Название игры:</label>
       <input type="text" name="title"  id="title" maxlength="24" required>
-      <div class="container col-md-6" style="float:right">
+  </fieldset>
+
+      <div class="container col-md-6" style="float:right; position: relative; top: -100px; left: 20px">
           <p style="outline:2px solid #555; border-radius:5px; width: 300px; height: 300px;">
           <img id="frame" src="" class="img-fluid" style="max-width: 300px; max-height: 300px;  " /></p>
 
@@ -48,7 +50,7 @@ function clearimage() {
     frame.src = "";
 }
       </script>
-  </fieldset>
+
   <fieldset>
       <legend>Дополнительные данные</legend>
       <div>

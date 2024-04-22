@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block body %}
-<div class="logbut">
+<div class="logbut" style="position:absolute; top:50px; right:32px">
     {% if current_user.is_anonymous %}
-    <a href="/login" class="btn btn-dark">Войти/Зарегистрироваться</a>
+    <a href="/login" class="btn btn-danger">Войти/Зарегистрироваться</a>
     {% else %}
-    <p style="float: left; font-size:16px; margin: 36px" class="badge bg-primary text-wrap">Здравствуйте, {{current_user.login}}</p>
-    <a href="/logout" class="btn btn-dark">Выйти</a>
+    <p style="float: left; font-size:16px; margin: 36px" class="badge bg-primary text-wrap btn btn-danger">Текущий пользователь: {{current_user.login}}</p>
+    <a href="/logout" class="btn btn-danger">Выйти</a>
     {% endif %}
 </div>
 <table>
