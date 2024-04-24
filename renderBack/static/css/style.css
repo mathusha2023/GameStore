@@ -10,13 +10,6 @@ body {
 .pricing-header {
   max-width: 1%;
 }
-.logbut{
-    position:absolute;
-    top:0%;
-    right:0%;
-    display: flex
-
-}
 .navigation{
     display: inline-block;
     float: left
@@ -24,6 +17,10 @@ body {
 .contentik {
     display: inline-block;
     float: left
+}
+.thumbnail {
+  height: 100px;
+  margin: 10px;
 }
 @media (min-width: 992px) {
   .navbar,

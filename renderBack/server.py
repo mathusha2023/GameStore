@@ -1,10 +1,12 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from data import db_session
 import os
 from data.users import User
 from forms.registerform import RegisterForm
 from forms.loginform import LoginForm
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+import requests
+import pickle
 
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -59,6 +61,27 @@ def login():
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route('/senddata', methods=['POST', 'GET'])
+def senddata():
+    url = "http://127.0.0.1:8080"
+    if request.method == 'POST':
+        title = request.form.get('title')
+        desk = request.form.get('desk')
+        author = current_user.get_id()
+        prev_file = request.files['prev']
+        zip_file = request.files['file']
+        files = request.files.getlist('files')
+        data = {
+            "title": title,
+            "desc": desk,
+            "author": author,
+            "prev": ("png", prev_file.read()),
+            "file": ("zip", zip_file.read()),
+            "images": [(f.filename.split('.')[-1], f.read()) for f in files]
+        }
+        return requests.post(url, data=pickle.dumps(data)).json()
 
 
 @app.route('/logout')

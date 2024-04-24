@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-<form action="#" method="post" target="_blank">
+<form action="/senddata" method="post" enctype="multipart/form-data" target="_blank">
   <h2>Загрузить игру</h2>
   <fieldset>
     <legend>Основные данные</legend>
@@ -13,7 +13,7 @@
           <img id="frame" src="" class="img-fluid" style="max-width: 300px; max-height: 300px;  " /></p>
 
             <div class="mb-5">
-                <input class="form-control" type="file" id="formFile" onchange="preview()">
+                <input class="form-control" name="prev" type="file" id="formFile" onchange="preview()" accept="image/png" required>
             </div>
       </div>
       <script>
@@ -21,17 +21,19 @@
     return new Promise((resolve, reject) => {
         const img = new Image();
         img.onload = () => {
-            if (img.width === img.height) {
+            if (img.width === img.height){
                 resolve();
             } else {
-                reject(new Error('Изображение должно быть квадратным!'));
+                reject(new Error('Изображение должно быть квадратным и иметь расширение .png!'));
             }
         };
         img.src = URL.createObjectURL(file);
     });
 }
-
-// Показ изображения (мне пришлось 30 минут читать гайды по джаваскрипту аааа)
+function clearInputField() {
+            document.getElementById('myForm').reset();
+        }
+// Показ изображения (мне пришлось читать гайды по джаваскрипту аааа)
 function preview() {
     const file = event.target.files[0];
     checkImageSize(file)
@@ -54,7 +56,7 @@ function clearimage() {
   <fieldset>
       <legend>Дополнительные данные</legend>
       <div>
-          <textarea name="desc" placeholder="Добавьте краткое описание игры" id="desc"></textarea>
+          <textarea name="desc" placeholder="Добавьте краткое описание игры" id="desc" style="width: 312px; height: 150px;" required></textarea>
       </div>
       <div>
 
@@ -63,7 +65,48 @@ function clearimage() {
     <fieldset>
         <div>
             <legend for="file" class="form-label">Zip архив с игрой </legend>
-            <input class="form-control form-control-lg" id="file" type="file">
+            <input class="form-control form-control-lg" id="file" type="file" accept=".zip" required>
+            <script>
+document.getElementById('file').onchange = function(e) {
+    if(!e.target.files[0].name.match(/\.(zip)$/)) {
+        alert('Принимаются только архивы форматов .zip!');
+        e.target.value = '';
+    }
+};
+</script>
+        </div>
+        <div style>
+            <legend for='files'>Выберите дополнительные файлы: </legend>
+            <label>Поддерживаются только png!</label>
+            <input id='files' type='file' multiple/>
+            <output id='result' />
+            <script>
+window.onload = function() {
+  if (window.File && window.FileList && window.FileReader) {
+    var filesInput = document.getElementById("files");
+    filesInput.addEventListener("change", function(event) {
+      var files = event.target.files;
+      var output = document.getElementById("result");
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        if (!file.type.match('png'))
+          continue;
+        var picReader = new FileReader();
+        picReader.addEventListener("load", function(event) {
+          var picFile = event.target;
+          var div = document.createElement("div");
+          div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
+            "title='" + picFile.name + "'/>";
+          output.insertBefore(div, null);
+        });
+        picReader.readAsDataURL(file);
+      }
+    });
+  } else {
+    console.log("Ваш браузер отвратителен и не поддерживает мою гениальность :)");
+  }
+}
+        </script>
         </div>
     </fieldset>
     <div>
