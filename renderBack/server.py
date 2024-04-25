@@ -65,11 +65,11 @@ def login():
 
 @app.route('/senddata', methods=['POST', 'GET'])
 def senddata():
-    url = "http://127.0.0.1:8080"
+    url = "http://127.0.0.1:8080/games"
     if request.method == 'POST':
         title = request.form.get('title')
-        desk = request.form.get('desk')
-        author = current_user.get_id()
+        desk = request.form.get('desk', '')
+        author = int(current_user.get_id())
         prev_file = request.files['prev']
         zip_file = request.files['file']
         files = request.files.getlist('files')
@@ -81,7 +81,8 @@ def senddata():
             "file": ("zip", zip_file.read()),
             "images": [(f.filename.split('.')[-1], f.read()) for f in files]
         }
-        return requests.post(url, data=pickle.dumps(data)).json()
+        requests.post(url, data=pickle.dumps(data)).json()
+        return render_template('index.html')
 
 
 @app.route('/logout')

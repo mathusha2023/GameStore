@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-<form action="/senddata" method="post" enctype="multipart/form-data" target="_blank">
+<form action="/senddata" method="post" enctype=multipart/form-data target="_blank">
   <h2>Загрузить игру</h2>
   <fieldset>
     <legend>Основные данные</legend>
@@ -65,7 +65,7 @@ function clearimage() {
     <fieldset>
         <div>
             <legend for="file" class="form-label">Zip архив с игрой </legend>
-            <input class="form-control form-control-lg" id="file" type="file" accept=".zip" required>
+            <input class="form-control form-control-lg" name="file" id="file" type="file" accept=".zip" required>
             <script>
 document.getElementById('file').onchange = function(e) {
     if(!e.target.files[0].name.match(/\.(zip)$/)) {
@@ -78,7 +78,7 @@ document.getElementById('file').onchange = function(e) {
         <div style>
             <legend for='files'>Выберите дополнительные файлы: </legend>
             <label>Поддерживаются только png!</label>
-            <input id='files' type='file' multiple/>
+            <input id='files' type='file' name="files" multiple/>
             <output id='result' />
             <script>
 window.onload = function() {
