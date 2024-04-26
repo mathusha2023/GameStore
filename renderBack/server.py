@@ -5,6 +5,7 @@ from data.users import User
 from forms.registerform import RegisterForm
 from forms.loginform import LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_sqlalchemy import SQLAlchemy
 import requests
 import pickle
 
@@ -22,9 +23,24 @@ def main():
     app.run(host="127.0.0.1", port=8000)
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    url = 'http://127.0.0.1:8080/games'
+    response = requests.get(url)
+    game_dict = {}
+    if response.status_code == 200:
+        data = response.json()  # Перевод в словарик
+        games_list = data.get('games', [])  #список игр из данных, по ключу 'games'
+        # for game in games_list: # ПытаЮсь поменять айди на имя
+        #     author_id = int(game['author'])
+        #     user = db.session.query(User).get(author_id)  #Как мне получить, sqlalchemy помоги аааа
+        #     if user:
+        #         game['author'] = user.login
+        #     else:
+        #         game['author'] = 'Unknown'
+        game_dict = games_list
+    print(game_dict)
+    return render_template('index.html', games=game_dict)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -82,7 +98,7 @@ def senddata():
             "images": [(f.filename.split('.')[-1], f.read()) for f in files]
         }
         requests.post(url, data=pickle.dumps(data)).json()
-        return render_template('index.html')
+        return redirect('/')
 
 
 @app.route('/logout')
