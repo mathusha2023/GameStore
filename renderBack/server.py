@@ -37,6 +37,7 @@ def index():
             author = get_login_by_id(author_id)
             if author:
                 game['author'] = author
+                game['author_id'] = author_id
         game_dict = games_list
     print(game_dict)
     return render_template('index.html', game_dict=game_dict)
@@ -122,6 +123,14 @@ def create():
 @login_required
 def mygames():
     return render_template('mygames.html')
+@app.route("/privacy")
+@login_required
+def privacy():
+    return render_template('privacy.html')
+@app.route("/terms")
+@login_required
+def terms():
+    return render_template('terms.html')
 
 
 @login_manager.user_loader
