@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request
 from data import db_session
+from data.db_session import create_session
 import os
 from data.users import User
 from forms.registerform import RegisterForm
@@ -31,16 +32,19 @@ def index():
     if response.status_code == 200:
         data = response.json()  # Перевод в словарик
         games_list = data.get('games', [])  #список игр из данных, по ключу 'games'
-        # for game in games_list: # ПытаЮсь поменять айди на имя
-        #     author_id = int(game['author'])
-        #     user = db.session.query(User).get(author_id)  #Как мне получить, sqlalchemy помоги аааа
-        #     if user:
-        #         game['author'] = user.login
-        #     else:
-        #         game['author'] = 'Unknown'
+        for game in games_list: # ПытаЮсь поменять айди на имя
+            author_id = int(game['author'])
+            author = get_login_by_id(author_id)
+            if author:
+                game['author'] = author
         game_dict = games_list
     print(game_dict)
-    return render_template('index.html', games=game_dict)
+    return render_template('index.html', game_dict=game_dict)
+def get_login_by_id(user_id):
+    session = create_session()
+    user = session.query(User).filter(User.id == user_id).first()
+    session.close()
+    return user.login if user else None
 
 
 @app.route('/register', methods=['GET', 'POST'])
