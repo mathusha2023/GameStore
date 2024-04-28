@@ -11,7 +11,9 @@ from tools import abort_if_game_not_found, load_file, check_args
 
 
 class GameResource(Resource):
-    def get(self, game_id):
+
+    @staticmethod
+    def get(game_id):
         abort_if_game_not_found(game_id)
         session = db_session.create_session()
         game: Game = session.query(Game).get(game_id)
@@ -22,7 +24,8 @@ class GameResource(Resource):
             d
         )
 
-    def delete(self, game_id):
+    @staticmethod
+    def delete(game_id):
         abort_if_game_not_found(game_id)
         session = db_session.create_session()
         game: Game = session.query(Game).get(game_id)
@@ -35,7 +38,9 @@ class GameResource(Resource):
 
 
 class GameListResource(Resource):
-    def get(self):
+
+    @staticmethod
+    def get():
         author = request.args.get("author", None)
         session = db_session.create_session()
         if author is None:
@@ -50,7 +55,8 @@ class GameListResource(Resource):
             dict(games=[item.to_dict(only=("id", "title", "prev", "author", "rate")) for item in games])
         )
 
-    def post(self):
+    @staticmethod
+    def post():
         args = pickle.loads(request.data)
         check_args(args)
         session = db_session.create_session()

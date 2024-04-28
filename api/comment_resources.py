@@ -1,5 +1,5 @@
-from flask import jsonify
-from flask_restful import Resource, reqparse
+from flask import jsonify, request
+from flask_restful import Resource, reqparse, abort
 from tools import abort_if_game_not_found
 from data import db_session
 from data.comments import Comment
@@ -31,3 +31,15 @@ class CommentResource(Resource):
         game.update_rate()
         session.commit()
         return jsonify({"message": "ok"})
+
+    @staticmethod
+    def get(game_id):
+        abort_if_game_not_found(game_id)
+        user_id = request.args.get("user_id", None)
+        if user_id is None:
+            abort(400, message=f"User_id required")
+        session = db_session.create_session()
+        comment: Comment = session.query(Comment).filter(Comment.game_id == game_id, Comment.user == user_id).first()
+        if comment is None:
+            return jsonify({})
+        return jsonify(comment.to_dict(only=["mark", "message"]))

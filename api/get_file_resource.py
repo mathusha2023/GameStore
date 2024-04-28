@@ -4,7 +4,9 @@ import os
 
 
 class GetFileResource(Resource):
-    def get(self):
+
+    @staticmethod
+    def get():
         path = request.args.get("p", None)
         if path is None:
             abort(400, message="Filepath argument required!")
