@@ -15,10 +15,10 @@
         {% endif %}
             <td style="width: 33.33vw; text-align: center; padding: 10px; margin: 20px 0">
                 <a href="/{{game['id']}}" class="link-light link-underline-opacity-0">
-                <div style="width: 500px; height: 500px" >
-                    <img src="http://127.0.0.1:8080/file?p={{game['prev']}}" class="img-thumbnail" style="max-width: 500px; max-height: 500px">
+                <div style="width: 26vw; height: 26vw" >
+                    <img src="http://127.0.0.1:8080/file?p={{game['prev']}}" class="img-thumbnail" style="max-width: 26vw; max-height: 26vw">
                 </div>
-                <div class="card-body" style="width: 500px">
+                <div class="card-body" style="width: 26vw">
                     <h5 class="card-title text-start" style="">{{ game['title'] }}</h5>
                     <p class="card-author text-start" style="">{{ game['author'] }}</p>
                 </div>
@@ -31,38 +31,5 @@
     {% endfor %}
 </table>
 
-<!--
-<table>
-        <tr>
-            <td style="width: 33.33vw; text-align: center; padding: 10px; margin: 20px 0">
-                <div class="gamebox">
-                    <img alt="Коробочка1" src="{{ url_for('static', filename='external/rectangle11056-49a9-300h.png')}}" class="desktop1-rectangle1"/>
-                    <img alt="Коробочка2" src="{{ url_for('static', filename='external/rectangle41060-nzf-200w.png')}}" class="desktop1-rectangle4"/>
-                    <span class="desktop1-text06">
-                        <span>4.7</span>
-                    </span>
-                    <img alt="Star11062" src="{{ url_for('static', filename='external/star11062-gps.svg')}}" class="desktop1-star1"/>
-                    <img alt="Star21065" src="{{ url_for('static', filename='external/star21065-xyfd.svg')}}" class="desktop1-star2"/>
-                    <img alt="Star31066" src="{{ url_for('static', filename='external/star31066-9am.svg')}}" class="desktop1-star3"/>
-                    <img alt="Star41067" src="{{ url_for('static', filename='external/star41067-tm9c.svg')}}" class="desktop1-star4"/>
-                    <img alt="Star51068" src="{{ url_for('static', filename='external/star51068-xnve.svg')}}" class="desktop1-star5"/>
-                    <div class="desktop1-frame3">
-                        <span class="desktop1-text08">
-                            <span>Dungeons &amp; Mathematics</span>
-                        </span>
-                    </div>
-                    <span class="desktop1-text10">
-                        <span>Bazinga228</span>
-                    </span>
-                </div>
-            </td>
-            <td style="width: 33.33vw; text-align: center; padding: 10px; margin: 20px 0">
-                Второй элемент
-            </td>
-            <td style="width: 33.33vw; text-align: center; padding: 10px; margin: 20px 0">
-                Третий элемент
-            </td>
-        </tr>
-</table> -->
 
 {% endblock %}
