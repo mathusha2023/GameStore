@@ -6,7 +6,6 @@ from data.users import User
 from forms.registerform import RegisterForm
 from forms.loginform import LoginForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-from flask_sqlalchemy import SQLAlchemy
 import requests
 import pickle
 
@@ -31,8 +30,8 @@ def index():
     game_dict = {}
     if response.status_code == 200:
         data = response.json()  # Перевод в словарик
-        games_list = data.get('games', [])  #список игр из данных, по ключу 'games'
-        for game in games_list: # ПытаЮсь поменять айди на имя
+        games_list = data.get('games', [])  # список игр из данных, по ключу 'games'
+        for game in games_list:  # ПытаЮсь поменять айди на имя
             author_id = int(game['author'])
             author = get_login_by_id(author_id)
             if author:
@@ -41,6 +40,8 @@ def index():
         game_dict = games_list
     print(game_dict)
     return render_template('index.html', game_dict=game_dict)
+
+
 def get_login_by_id(user_id):
     session = create_session()
     user = session.query(User).filter(User.id == user_id).first()
@@ -123,12 +124,14 @@ def create():
 @login_required
 def mygames():
     return render_template('mygames.html')
+
+
 @app.route("/privacy")
-@login_required
 def privacy():
     return render_template('privacy.html')
+
+
 @app.route("/terms")
-@login_required
 def terms():
     return render_template('terms.html')
 
