@@ -8,7 +8,7 @@ from get_file_resource import GetFileResource
 from comment_resources import CommentResource
 
 load_dotenv()
-HOST = os.getenv('HOST')
+HOST = os.getenv('API_HOST')
 PORT = os.getenv('API_PORT')
 SECRET_KEY = os.getenv('API_SECRET_KEY')
 

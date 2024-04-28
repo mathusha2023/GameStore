@@ -11,11 +11,12 @@ import requests
 import pickle
 
 load_dotenv()
-HOST = os.getenv('HOST')
+HOST = os.getenv('NEAPI_HOST')
 PORT = os.getenv('NEAPI_PORT')
 SECRET_KEY = os.getenv('NEAPI_SECRET_KEY')
+API_HOST = os.getenv("API_HOST")
 API_PORT = os.getenv('API_PORT')
-api_url = f'http://{HOST}:{API_PORT}'
+api_url = f'http://{API_HOST}:{API_PORT}'
 print(api_url)
 app = Flask(__name__)
 login_manager = LoginManager()
