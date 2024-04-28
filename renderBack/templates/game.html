@@ -5,13 +5,13 @@
 </div>
 <div id="images" class="" style="">
     <p style="outline:2px solid #555; border-radius:5px; width: 16vw; height: 16vw;">
-        <img id="frame" src="http://127.0.0.1:8080/file?p={{game['prev']}}" class="img-fluid" style="max-width: 16vw; max-height: 16vw;  " />
+        <img id="frame" src="{{api_url}}/file?p={{game['prev']}}" class="img-fluid" style="max-width: 16vw; max-height: 16vw;  " />
     </p>
     <div id="moreimages" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
             {% for image in game['images'] %}
             <div class="carousel-item active">
-                <img src="http://127.0.0.1:8080/file?p={{ image['img'] }}" class="d-block w-100" style="max-width: 20vw;max-height: 20vw;">
+                <img src="{{api_url}}/file?p={{image['img']}}" class="d-block w-100" style="max-width: 20vw;max-height: 20vw;">
             </div>
             {% endfor %}
         </div>

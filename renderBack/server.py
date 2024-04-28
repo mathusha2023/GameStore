@@ -15,7 +15,8 @@ HOST = os.getenv('HOST')
 PORT = os.getenv('NEAPI_PORT')
 SECRET_KEY = os.getenv('NEAPI_SECRET_KEY')
 API_PORT = os.getenv('API_PORT')
-api_url = f'{HOST}:{API_PORT}'
+api_url = f'http://{HOST}:{API_PORT}'
+print(api_url)
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -31,7 +32,7 @@ def main():
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    url = f'http://{api_url}/games'
+    url = f'{api_url}/games'
     response = requests.get(url)
     game_dict = {}
     if response.status_code == 200:
@@ -44,7 +45,7 @@ def index():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
-    return render_template('index.html', game_dict=game_dict)
+    return render_template('index.html', game_dict=game_dict, api_url=api_url)
 
 
 def get_login_by_id(user_id):
@@ -72,7 +73,7 @@ def register():
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
-    return render_template('register.html', title='Регистрация', form=form)
+    return render_template('register.html', title='Регистрация', form=form, api_url=api_url)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -87,12 +88,12 @@ def login():
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    return render_template('login.html', title='Авторизация', form=form)
+    return render_template('login.html', title='Авторизация', form=form, api_url=api_url)
 
 
 @app.route('/senddata', methods=['POST', 'GET'])
 def senddata():
-    url = f"http://{api_url}/games"
+    url = f"{api_url}/games"
     if request.method == 'POST':
         title = request.form.get('title')
         desk = request.form.get('desk', '')
@@ -127,13 +128,13 @@ def logout():
 @app.route("/create")
 @login_required
 def create():
-    return render_template('create.html')
+    return render_template('create.html', api_url=api_url)
 
 
 @app.route("/mygames")
 @login_required
 def mygames():
-    url = f'http://{api_url}/games?author={int(current_user.get_id())}'
+    url = f'{api_url}/games?author={int(current_user.get_id())}'
     response = requests.get(url)
     game_dict = {}
     if response.status_code == 200:
@@ -146,13 +147,13 @@ def mygames():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
-    return render_template('mygames.html', game_dict=game_dict)
+    return render_template('mygames.html', game_dict=game_dict, api_url=api_url)
 
 
 @app.route('/game/<game_id>')
 def game_detail(game_id):
     game_data = {}
-    url = f'http://{api_url}/game/{game_id}'
+    url = f'{api_url}/game/{game_id}'
     response = requests.get(url)
     if response.status_code == 200:
         game_data = response.json()
@@ -162,7 +163,7 @@ def game_detail(game_id):
             game_data['author'] = author
             game_data['author_id'] = author_id
     print(game_data)
-    return render_template('game.html', game=game_data)
+    return render_template('game.html', game=game_data, api_url=api_url)
 
 
 @app.route("/privacy")
