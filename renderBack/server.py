@@ -14,6 +14,8 @@ load_dotenv()
 HOST = os.getenv('HOST')
 PORT = os.getenv('NEAPI_PORT')
 SECRET_KEY = os.getenv('NEAPI_SECRET_KEY')
+API_PORT = os.getenv('API_PORT')
+api_url = f'{HOST}:{API_PORT}'
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -29,7 +31,7 @@ def main():
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    url = 'http://127.0.0.1:8080/games'
+    url = f'http://{api_url}/games'
     response = requests.get(url)
     game_dict = {}
     if response.status_code == 200:
@@ -90,7 +92,7 @@ def login():
 
 @app.route('/senddata', methods=['POST', 'GET'])
 def senddata():
-    url = "http://127.0.0.1:8080/games"
+    url = f"http://{api_url}/games"
     if request.method == 'POST':
         title = request.form.get('title')
         desk = request.form.get('desk', '')
@@ -131,7 +133,7 @@ def create():
 @app.route("/mygames")
 @login_required
 def mygames():
-    url = f'http://127.0.0.1:8080/games?author={int(current_user.get_id())}'
+    url = f'http://{api_url}/games?author={int(current_user.get_id())}'
     response = requests.get(url)
     game_dict = {}
     if response.status_code == 200:
@@ -150,7 +152,7 @@ def mygames():
 @app.route('/game/<game_id>')
 def game_detail(game_id):
     game_data = {}
-    url = f'http://127.0.0.1:8080/game/{game_id}'
+    url = f'http://{api_url}/game/{game_id}'
     response = requests.get(url)
     if response.status_code == 200:
         game_data = response.json()
