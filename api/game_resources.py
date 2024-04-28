@@ -15,8 +15,10 @@ class GameResource(Resource):
         abort_if_game_not_found(game_id)
         session = db_session.create_session()
         game: Game = session.query(Game).get(game_id)
+        d = game.to_dict()
+        d["comments_count"] = len(game.comments)
         return jsonify(
-            game.to_dict()
+            d
         )
 
     def delete(self, game_id):
