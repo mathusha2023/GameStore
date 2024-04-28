@@ -8,9 +8,9 @@ from get_file_resource import GetFileResource
 from comment_resources import CommentResource
 
 load_dotenv()
-HOST=os.getenv('HOST')
-PORT=os.getenv('API_PORT')
-SECRET_KEY=os.getenv('API_SECRET_KEY')
+HOST = os.getenv('HOST')
+PORT = os.getenv('API_PORT')
+SECRET_KEY = os.getenv('API_SECRET_KEY')
 
 
 class MyApp(Flask):

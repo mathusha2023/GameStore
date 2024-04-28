@@ -11,9 +11,9 @@ import requests
 import pickle
 
 load_dotenv()
-HOST=os.getenv('HOST')
-PORT=os.getenv('NEAPI_PORT')
-SECRET_KEY=os.getenv('NEAPI_SECRET_KEY')
+HOST = os.getenv('HOST')
+PORT = os.getenv('NEAPI_PORT')
+SECRET_KEY = os.getenv('NEAPI_SECRET_KEY')
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
