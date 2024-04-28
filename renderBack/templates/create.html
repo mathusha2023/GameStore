@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
-<form action="/senddata" method="post" enctype=multipart/form-data target="_blank">
+<form id="chloroform" action="/senddata" method="post" enctype=multipart/form-data >
   <h2>Загрузить игру</h2>
   <fieldset>
     <legend>Основные данные</legend>
@@ -75,10 +75,10 @@ document.getElementById('file').onchange = function(e) {
 };
 </script>
         </div>
-        <div style>
+        <div>
             <legend for='files'>Выберите дополнительные файлы: </legend>
             <label>Поддерживаются только png!</label>
-            <input id='files' type='file' name="files" multiple/>
+            <input id='files' type='file' name="files" accept="/image/png" multiple/>
             <output id='result' />
             <script>
 window.onload = function() {
@@ -106,11 +106,11 @@ window.onload = function() {
     console.log("Ваш браузер отвратителен и не поддерживает мою гениальность :)");
   }
 }
-        </script>
+            </script>
         </div>
     </fieldset>
     <div>
-            <button type="submit">Отправить</button>
-        </div>
+        <button type="submit">Отправить</button>
+    </div>
 </form>
 {% endblock %}

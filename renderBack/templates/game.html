@@ -1,5 +1,28 @@
 {% extends "base.html" %}
 {% block body %}
-
-
+<div id="info" style="width: 48vw; border-right: 5px solid red">
+    <div id="title" class="fw-bold text-center" style="text-align:center; font-size: 42px">{{ game['title'] }}</div>
+</div>
+<div id="images" class="" style="">
+    <p style="outline:2px solid #555; border-radius:5px; width: 16vw; height: 16vw;">
+        <img id="frame" src="http://127.0.0.1:8080/file?p={{game['prev']}}" class="img-fluid" style="max-width: 16vw; max-height: 16vw;  " />
+    </p>
+    <div id="moreimages" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for image in game['images'] %}
+            <div class="carousel-item active">
+                <img src="http://127.0.0.1:8080/file?p={{ image['img'] }}" class="d-block w-100" style="max-width: 20vw;max-height: 20vw;">
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Предыдущая</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">СледуЮщая</span>
+        </button>
+    </div>
+</div>
 {% endblock %}

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request
 from data import db_session
 from data.db_session import create_session
+from dotenv import load_dotenv
 import os
 from data.users import User
 from forms.registerform import RegisterForm
@@ -9,10 +10,13 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 import requests
 import pickle
 
+load_dotenv()
+HOST=os.getenv('HOST')
+PORT=os.getenv('NEAPI_PORT')
+SECRET_KEY=os.getenv('NEAPI_SECRET_KEY')
 app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
-SECRET_KEY = 'IfYoUhAvErEaDtHiSyOuArEgEy'
 app.config['SECRET_KEY'] = SECRET_KEY
 
 
@@ -20,7 +24,7 @@ def main():
     if not os.path.isdir("db"):
         os.mkdir("db")
     db_session.global_init("db/users.db")
-    app.run(host="127.0.0.1", port=8000)
+    app.run(host=HOST, port=PORT)
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -38,7 +42,6 @@ def index():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
-    print(game_dict)
     return render_template('index.html', game_dict=game_dict)
 
 
@@ -95,13 +98,18 @@ def senddata():
         prev_file = request.files['prev']
         zip_file = request.files['file']
         files = request.files.getlist('files')
+        print(files)
+        images = []
+        for file in files:
+            images.append(("png", file.read()))
+        print(images)
         data = {
             "title": title,
             "desc": desk,
             "author": author,
             "prev": ("png", prev_file.read()),
             "file": ("zip", zip_file.read()),
-            "images": [(f.filename.split('.')[-1], f.read()) for f in files]
+            "images": images
         }
         requests.post(url, data=pickle.dumps(data)).json()
         return redirect('/')
@@ -136,8 +144,23 @@ def mygames():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
-    print(game_dict)
     return render_template('mygames.html', game_dict=game_dict)
+
+
+@app.route('/game/<game_id>')
+def game_detail(game_id):
+    game_data = {}
+    url = f'http://127.0.0.1:8080/game/{game_id}'
+    response = requests.get(url)
+    if response.status_code == 200:
+        game_data = response.json()
+        author_id = int(game_data['author'])
+        author = get_login_by_id(author_id)
+        if author:
+            game_data['author'] = author
+            game_data['author_id'] = author_id
+    print(game_data)
+    return render_template('game.html', game=game_data)
 
 
 @app.route("/privacy")
