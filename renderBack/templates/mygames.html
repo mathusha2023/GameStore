@@ -1,3 +1,35 @@
 {% extends "base.html" %}
 {% block body %}
+<div class="logbut" style="position:absolute; top:50px; right:32px">
+    {% if current_user.is_anonymous %}
+    <a href="/login" class="btn btn-danger">Войти/Зарегистрироваться</a>
+    {% else %}
+    <p style="font-size:16px; margin: 36px" class="badge bg-primary text-wrap btn btn-danger">Текущий пользователь: {{current_user.login}}</p>
+    <a href="/logout" class="btn btn-danger">Выйти</a>
+    {% endif %}
+</div>
+<table>
+    {% for game in game_dict %}
+    {% if loop.index0 % 3 == 0 %}
+    <tr> <!-- Начало ряда -->
+        {% endif %}
+            <td style="width: 33.33vw; text-align: center; padding: 10px; margin: 20px 0">
+                <a href="/{{game['id']}}" class="link-light link-underline-opacity-0">
+                <div style="width: 26vw; height: 26vw" >
+                    <img src="http://127.0.0.1:8080/file?p={{game['prev']}}" class="img-thumbnail" style="max-width: 26vw; max-height: 26vw">
+                </div>
+                <div class="card-body" style="width: 26vw">
+                    <h5 class="card-title text-start" style="">{{ game['title'] }}</h5>
+                    <p class="card-author text-start" style="">{{ game['author'] }}</p>
+                </div>
+                    </a>
+            </td>
+
+        {% if loop.index % 3 == 0 or loop.last %}
+    </tr> <!-- Конец ряда -->
+    {% endif %}
+    {% endfor %}
+</table>
+
+
 {% endblock %}

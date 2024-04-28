@@ -123,7 +123,21 @@ def create():
 @app.route("/mygames")
 @login_required
 def mygames():
-    return render_template('mygames.html')
+    url = f'http://127.0.0.1:8080/games?author={int(current_user.get_id())}'
+    response = requests.get(url)
+    game_dict = {}
+    if response.status_code == 200:
+        data = response.json()
+        games_list = data.get('games', [])
+        for game in games_list:
+            author_id = int(game['author'])
+            author = get_login_by_id(author_id)
+            if author:
+                game['author'] = author
+                game['author_id'] = author_id
+        game_dict = games_list
+    print(game_dict)
+    return render_template('mygames.html', game_dict=game_dict)
 
 
 @app.route("/privacy")
