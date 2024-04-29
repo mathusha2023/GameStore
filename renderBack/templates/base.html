@@ -5,53 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" href="{{url_for('static', filename='images/favicon.ico')}}" type="image/x-icon">
     <title>{{ title }}</title>
 
 </head>
 
-<header class="text-bg-dark p-3" >
-<div class="container py-3 text-bg-dark p-3">
-    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
-      <a href="/index" class="d-flex align-items-center link-body-emphasis text-decoration-none">
-        <img src="{{url_for('static', filename='images/logo.png')}}" width="128" height="128">
-        <span style="font-size: 90px">YStore</span>
-      </a>
-    </div>
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Искать игры" aria-label="Поиск" aria-describedby="button-addon2" id="kinput">
+<header class="text-bg-dark p-3">
+    <div class="container py-3 text-bg-dark p-3">
+        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+            <a href="/index" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+                <img src="{{url_for('static', filename='images/logo.png')}}" width="128" height="128">
+                <span style="font-size: 90px">YStore</span>
+            </a>
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Искать игры" aria-label="Поиск"
+                   aria-describedby="button-addon2" id="kinput">
 
-        <script>
-            kinput.onkeydown = handle;
+            <script>
+                kinput.onkeydown = handle;
 
-            function handle(e) {
-            if (e.key === "Enter") searchByName();
-            }
+                function handle(e) {
+                if (e.key === "Enter") searchByName();
+                }
 
-            function searchByName() {
-            let input = document.querySelector('input');
-            window.location.href = "/index?name=" + input.value;
-            }
-        </script>
+                function searchByName() {
+                let input = document.querySelector('input');
+                window.location.href = "/index?name=" + input.value;
+                }
+            </script>
 
-        <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="searchByName()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
-                 viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="searchByName()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                     viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85
                  3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0
-                 1 11 0z"/> </svg>
-        </button>
+                 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="logbut" style="position:absolute; top:50px; right:32px">
+            {% if current_user.is_anonymous %}
+            <a href="/login" class="btn btn-outline-danger">Войти/Зарегистрироваться</a>
+            {% else %}
+            <p style="font-size:16px; margin: 36px" class="badge bg-primary text-wrap btn btn-danger">Текущий
+                пользователь: {{current_user.login}}</p>
+            <a href="/logout" class="btn btn-outline-danger">Выйти</a>
+            {% endif %}
+        </div>
     </div>
-<div class="logbut" style="position:absolute; top:50px; right:32px">
-    {% if current_user.is_anonymous %}
-    <a href="/login" class="btn btn-outline-danger">Войти/Зарегистрироваться</a>
-    {% else %}
-    <p style="font-size:16px; margin: 36px" class="badge bg-primary text-wrap btn btn-danger">Текущий пользователь: {{current_user.login}}</p>
-    <a href="/logout" class="btn btn-outline-danger">Выйти</a>
-    {% endif %}
-</div>
-</div>
 </header>
 <div id="main">
     <div id="navigation" class="text-bg-dark p-3" style="display: inline-block; float: left; height: 100vm">
@@ -73,62 +77,73 @@
             </div>
         </nav>
     </div>
-    <div id="contentik" style="display: flex; justify-content: center; font-family: 'Pangolin', cursive; font-style: normal;">
+    <div id="contentik"
+         style="display: flex; justify-content: center; font-family: 'Pangolin', cursive; font-style: normal;">
         {% block body %}{% endblock %}
     </div>
 </div>
-<footer class="pt-4 my-md-5 pt-md-5 border-top text-bg-dark p-3" style="clear:both; height: 300px; margin-top: -300px; font-family: 'Pangolin', cursive; font-style: normal;">
+<footer class="pt-4 my-md-5 pt-md-5 border-top text-bg-dark p-3"
+        style="clear:both; height: 300px; margin-top: -300px; font-family: 'Pangolin', cursive; font-style: normal;">
     <div class="row">
-      <a class="col-12 col-md text-decoration-none" href="">
-        <img class="mb-2" src="{{url_for('static', filename='images/devlogo.png')}}" alt="" width="214" height="64">
-        <small class="d-block mb-3 text-body-secondary">© 2024–2069</small>
-      </a>
-      <div class="col-6 col-md">
-        <h5>Фичи (не баги)</h5>
-        <ul class="list-unstyled text-small">
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://www.php.net/manual/ru/install.php">Крутые вещи</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://docs.python.org/3/library/random.html">Бибилотека рандом</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212">Тимофейская команда
-          </a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://youtu.be/W5as0umwI8I?t=286">Разрабы-нарколыги</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://ru.wikipedia.org/wiki/%D0%9C%D0%BD%D0%B8%D0%BC%D0%B0%D1%8F_%D0%B5%D0%B4%D0%B8%D0%BD%D0%B8%D1%86%D0%B0">i=√-1</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://lyceum.yandex.ru/">Дедлайн проекта уже скоро, мне лень думать над тем, что здесь писать</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md">
-        <h5>Ресурсы</h5>
-        <ul class="list-unstyled text-small">
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://mrlevireaper.itch.io/dungeonsmathematics">Главный источник вдохновения</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://itch.io/">Ресурс который мы абсолЮтно точно не плагиатили</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://youtu.be/tXt2bTO5rT8?si=UOrZNwgWAX0dfE0J">Крутой видосик (не кликбейт)</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://www.youtube.com/watch?v=-51AfyMqnpI&list=PLNTK9welGzDynukDlMqLGqY3rlaMPOJOl">Крутой видосик (кликбейт)</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md">
-        <h5>О лучших разрабах</h5>
-        <ul class="list-unstyled text-small">
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://github.com/mathusha2023/GameStore/graphs/contributors">Команда</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="https://yandex.ru/maps/org/smolenskaya_oblastnaya_klinicheskaya_psikhiatricheskaya_bolnitsa/1481781553/?ll=32.137529%2C54.829392&mode=search&profile-mode=1&sctx=ZAAAAAgBEAAaKAoSCVxzR%2F%2FLBUBAEWxe1VktZEtAEhIJa2XCL%2FXz2j8RUg5mE2BYwj8iBgABAgQFBigBOABAnoUGSAFiJG1pZGRsZV95YW5kZXhfdHJhdmVsX0VuYWJsZUNhdFJvb209MGIcYWRkX3NuaXBwZXQ9bWFpbl9hc3BlY3RzLzEueGoCcnWVAQAAAACdAc3MTD2gAQGoAQC9Ad9F5GzCAQWx4sjCBYICVdC%2F0YHQuNGF0LjQsNGC0YDQuNGH0LXRgdC60LDRjyDQsdC%2B0LvRjNC90LjRhtCwINCz0LXQtNC10L7QvdC%2B0LLQutCwINGB0LzQvtC70LXQvdGB0LqKAgCSAgIxMpoCDGRlc2t0b3AtbWFwcw%3D%3D&sll=32.137529%2C54.829392&source=wizbiz_new_map_multi&sspn=0.013412%2C0.004556&text=%D0%BF%D1%81%D0%B8%D1%85%D0%B8%D0%B0%D1%82%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B1%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D1%86%D0%B0%20%D0%B3%D0%B5%D0%B4%D0%B5%D0%BE%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20%D1%81%D0%BC%D0%BE%D0%BB%D0%B5%D0%BD%D1%81%D0%BA&z=17.2">Главный офис</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="/privacy">Политика конфиденциальности</a></li>
-          <li class="mb-1"><a class="link-secondary text-decoration-none"
-                              href="/terms">Условия использования</a></li>
-        </ul>
-      </div>
+        <a class="col-12 col-md text-decoration-none" href="">
+            <img class="mb-2" src="{{url_for('static', filename='images/devlogo.png')}}" alt="" width="214" height="64">
+            <small class="d-block mb-3 text-body-secondary">© 2024–2069</small>
+        </a>
+        <div class="col-6 col-md">
+            <h5>Фичи (не баги)</h5>
+            <ul class="list-unstyled text-small">
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://www.php.net/manual/ru/install.php">Крутые вещи</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://docs.python.org/3/library/random.html">Бибилотека рандом</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://www.sberbank.com/sms/pbpn?requisiteNumber=79303042212">Тимофейская
+                    команда
+                </a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://youtu.be/W5as0umwI8I?t=286">Разрабы-нарколыги</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://ru.wikipedia.org/wiki/%D0%9C%D0%BD%D0%B8%D0%BC%D0%B0%D1%8F_%D0%B5%D0%B4%D0%B8%D0%BD%D0%B8%D1%86%D0%B0">i=√-1</a>
+                </li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://lyceum.yandex.ru/">Дедлайн проекта уже скоро, мне лень думать над тем,
+                    что здесь писать</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Ресурсы</h5>
+            <ul class="list-unstyled text-small">
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://mrlevireaper.itch.io/dungeonsmathematics">Главный источник
+                    вдохновения</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://itch.io/">Ресурс который мы абсолЮтно точно не плагиатили</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://youtu.be/tXt2bTO5rT8?si=UOrZNwgWAX0dfE0J">Крутой видосик (не
+                    кликбейт)</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://www.youtube.com/watch?v=-51AfyMqnpI&list=PLNTK9welGzDynukDlMqLGqY3rlaMPOJOl">Крутой
+                    видосик (кликбейт)</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>О лучших разрабах</h5>
+            <ul class="list-unstyled text-small">
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://github.com/mathusha2023/GameStore/graphs/contributors">Команда</a>
+                </li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="https://yandex.ru/maps/org/smolenskaya_oblastnaya_klinicheskaya_psikhiatricheskaya_bolnitsa/1481781553/?ll=32.137529%2C54.829392&mode=search&profile-mode=1&sctx=ZAAAAAgBEAAaKAoSCVxzR%2F%2FLBUBAEWxe1VktZEtAEhIJa2XCL%2FXz2j8RUg5mE2BYwj8iBgABAgQFBigBOABAnoUGSAFiJG1pZGRsZV95YW5kZXhfdHJhdmVsX0VuYWJsZUNhdFJvb209MGIcYWRkX3NuaXBwZXQ9bWFpbl9hc3BlY3RzLzEueGoCcnWVAQAAAACdAc3MTD2gAQGoAQC9Ad9F5GzCAQWx4sjCBYICVdC%2F0YHQuNGF0LjQsNGC0YDQuNGH0LXRgdC60LDRjyDQsdC%2B0LvRjNC90LjRhtCwINCz0LXQtNC10L7QvdC%2B0LLQutCwINGB0LzQvtC70LXQvdGB0LqKAgCSAgIxMpoCDGRlc2t0b3AtbWFwcw%3D%3D&sll=32.137529%2C54.829392&source=wizbiz_new_map_multi&sspn=0.013412%2C0.004556&text=%D0%BF%D1%81%D0%B8%D1%85%D0%B8%D0%B0%D1%82%D1%80%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F%20%D0%B1%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D1%86%D0%B0%20%D0%B3%D0%B5%D0%B4%D0%B5%D0%BE%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0%20%D1%81%D0%BC%D0%BE%D0%BB%D0%B5%D0%BD%D1%81%D0%BA&z=17.2">Главный
+                    офис</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="/privacy">Политика конфиденциальности</a></li>
+                <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                    href="/terms">Условия использования</a></li>
+            </ul>
+        </div>
     </div>
 </footer>
 <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </html>

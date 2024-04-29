@@ -1,114 +1,123 @@
 {% extends "base.html" %}
 {% block body %}
 <div id="wrupper" style="max-height: 100%">
-<div id="head" style="display: flex; max-width: 100%;">
-    <p id="frame" style="outline:2px solid #555; border-radius:5px; width: 6vw; height: 6vw;">
-        <img id="prev" src="{{api_url}}/file?p={{game['prev']}}" class="img-fluid" style="max-width: 6vw; max-height: 6vw" />
-    </p>
-    <div id="title_author" style="margin-left: 1vw; margin-right: 1vw">
-        <div id="title" class="fw-bold text-center" style="text-align:center; font-size: 42px; height: 3vw; text-align: center; vertical-align: middle; line-height: 3vw;">{{ game['title'] }}</div>
-        <div id="author">{{ game['author'] }}</div>
-    </div>
-    <div id="rating" style="outline:2px; solid #555; border-radius:5px; width: 20vw; height: 3vw;">
-        <script>
-        function displayRating(rating) {
-            var starsHTML = '';
-
-            // Полные звезды
-            for (var i = 1; i <= Math.floor(rating); i++) {
-                starsHTML += '<span class="fa fa-star checked"></span>';
-            }
-
-            // Половинки или оставшиеся части звезд
-            if (rating % 1 !== 0) {
-                starsHTML += '<span class="fa fa-star-half-alt checked"></span>';
-                for (var j = 0; j < 4 - Math.ceil(rating % 1) * 4; j++) {
-                    starsHTML += '<span class="fa fa-star"></span>';
-                }
-                var sobaka = 5 - Math.ceil(rating);
-            for (var m = 0; m < sobaka; m ++ ){
-                starsHTML += '<span class="fas fa-star fa-fw" style="color: black"></span>';
-            }
-            } else {
-                for (var k = 0; k < 5 - Math.floor(rating); k++) {
-                    starsHTML += '<span class="fa fa-star"></span>';
-                }
-            }
-            starsHTML += ' Средний рейтинг: ' + rating.toFixed(1);
-            document.getElementById('rating').innerHTML = starsHTML;
-        }
-
-        var rating = {{ game['rate'] }};
-        displayRating(rating);
-        </script>
-    </div>
-</div>
-
-
-<div id="info" style="width: 48vw">
-    <p id="infoframe" style="outline:2px solid #555; border-radius:5px; width: 100%; min-height: 15vw;">
-        {{game['desc']}}
-    </p>
-    <div id="imgframe" style="width: 100%">
-        <div id="images" class="carousel slide carousel" data-bs-ride="carousel" style="width: max-content; margin: auto">
-            <div class="carousel-inner">
-                {% for image in game['images'] %}
-                <div class="carousel-item {% if loop.first %}active{% endif %}">
-                    <img src="{{api_url}}/file?p={{image['img']}}" class="d-block w-100" style="max-width: 20vw;max-height: 20vw;">
-                </div>
-                {% endfor %}
+    <div id="head" style="display: flex; max-width: 100%;">
+        <p id="frame" style="outline:2px solid #555; border-radius:5px; width: 6vw; height: 6vw;">
+            <img id="prev" src="{{api_url}}/file?p={{game['prev']}}" class="img-fluid"
+                 style="max-width: 6vw; max-height: 6vw"/>
+        </p>
+        <div id="title_author" style="margin-left: 1vw; margin-right: 1vw">
+            <div id="title" class="fw-bold text-center"
+                 style="text-align:center; font-size: 42px; height: 3vw; text-align: center; vertical-align: middle; line-height: 3vw;">
+                {{ game['title'] }}
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#images" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Предыдущая</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#images" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Следующая</span>
-            </button>
+            <div id="author">{{ game['author'] }}</div>
+        </div>
+        <div id="rating" style="outline:2px; solid #555; border-radius:5px; width: 20vw; height: 3vw;">
+            <script>
+                function displayRating(rating) {
+                    var starsHTML = '';
+
+                    // Полные звезды
+                    for (var i = 1; i <= Math.floor(rating); i++) {
+                        starsHTML += '<span class="fa fa-star checked"></span>';
+                    }
+
+                    // Половинки или оставшиеся части звезд
+                    if (rating % 1 !== 0) {
+                        starsHTML += '<span class="fa fa-star-half checked"></span>';
+                        for (var j = 0; j < 4 - Math.ceil(rating % 1) * 4; j++) {
+                            starsHTML += '<span class="fa fa-star"></span>';
+                        }
+                    } else {
+                        for (var k = 0; k < 5 - Math.floor(rating); k++) {
+                            starsHTML += '<span class="fa fa-star"></span>';
+                        }
+                    }
+
+                    // Отображение среднего рейтинга под звездами
+                    starsHTML += '<br>Средний рейтинг: ' + rating.toFixed(1);
+
+                    document.getElementById('rating').innerHTML = starsHTML;
+                }
+
+                var rating = {{ game['rate'] }};
+                displayRating(rating);
+            </script>
+
         </div>
     </div>
+
+
+    <div id="info" style="width: 48vw">
+        <p id="infoframe" style="outline:2px solid #555; border-radius:5px; width: 100%; min-height: 15vw;">
+            {{game['desc']}}
+        </p>
+        <div id="imgframe" style="width: 100%">
+            <div id="images" class="carousel slide carousel" data-bs-ride="carousel"
+                 style="width: max-content; margin: auto">
+                <div class="carousel-inner">
+                    {% for image in game['images'] %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <img src="{{api_url}}/file?p={{image['img']}}" class="d-block w-100"
+                             style="max-width: 20vw;max-height: 20vw;">
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#images" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Предыдущая</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#images" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Следующая</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="buttons" style="display: flex">
+        <div id="download" style="width: 10vw">
+            <h3>Скачать игру!</h3>
+            <a href={{api_url}}/file?p={{game['file']}}>
+                <button type="submit" class="btn btn-outline-info">Украсть!</button>
+            </a>
+        </div>
+        {% if current_user.is_authenticated and current_user.id == game['author_id'] %}
+        <div id="delete_nahren" style="width: 10vw; margin-left: 28vw">
+            <h3 style="float: right">Удалить игру!</h3>
+            <button type="submit" class="btn btn-outline-danger" style="float: right" onclick="confirmDelete()">
+                Удалить!
+            </button>
+        </div>
+        {% endif %}
+
+        <script>
+            function confirmDelete() {
+                if (confirm("Вы уверены, что хотите удалить эту игру?")) {
+                    window.location.href = "/delete/{{ game['id'] }}";
+                }
+            }
+        </script>
+    </div>
+    <form method="post">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.review.label }}
+            {{ form.review(class="form-control") }}
+            {% for error in form.review.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.rating.label }}
+            {{ form.rating(class="form-control") }}
+            {% for error in form.rating.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+    </form>
 </div>
 
-<div id="buttons" style="display: flex">
-    <div id="download" style="width: 10vw">
-    <h3>Скачать игру!</h3>
-    <a href={{api_url}}/file?p={{game['file']}}>
-        <button type="submit" class="btn btn-outline-info">Украсть!</button>
-    </a>
-    </div>
-    {% if current_user.is_authenticated and current_user.id == game['author_id'] %}
-    <div id="delete_nahren" style="width: 10vw; margin-left: 28vw">
-        <h3 style="float: right">Удалить игру!</h3>
-        <button type="submit" class="btn btn-outline-danger" style="float: right" onclick="confirmDelete()">Удалить!</button>
-    </div>
-    {% endif %}
-
-    <script>
-function confirmDelete() {
-    if (confirm("Вы уверены, что хотите удалить эту игру?")) {
-        window.location.href = "/delete/{{ game['id'] }}";
-    }
-}
-</script>
-</div>
-<form method="post">
-    {{ form.csrf_token }}
-    <div class="form-group">
-        {{ form.review.label }}
-        {{ form.review(class="form-control") }}
-        {% for error in form.review.errors %}
-            <span class="text-danger">{{ error }}</span>
-        {% endfor %}
-    </div>
-    <div class="form-group">
-        {{ form.rating.label }}
-        {{ form.rating(class="form-control") }}
-        {% for error in form.rating.errors %}
-            <span class="text-danger">{{ error }}</span>
-        {% endfor %}
-    </div>
-    <button type="submit" class="btn btn-primary">Отправить отзыв</button>
-</form>
-</div>
 {% endblock %}

@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 {% block body %}
 <div id="loginforma" style="width:500px;">
-<h1 class="text-center">Авторизация</h1>
-<form action="" method="post" novalidate>
-    {{ form.hidden_tag() }}
+    <h1 class="text-center">Авторизация</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
 
         <p class="text-center">{{ form.username.label }}</p><br>
         {{ form.username(class="form-control") }}<br>
         {% for error in form.username.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endfor %}
 
-    <p>
+        <p>
         <p class="text-center">{{ form.password.label }}</p><br>
         {{ form.password(class="form-control", type="password") }}<br>
         {% for error in form.password.errors %}
-    <div class="alert alert-danger" role="alert">
-        {{ error }}
-    </div>
-    {% endfor %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endfor %}
 
-    <p class="text-center">{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+        <p class="text-center">{{ form.submit(type="submit", class="btn btn-primary") }}</p>
 
-</form>
+    </form>
     <div class="text-center">
         <p>Впервые здесь? <a href="/register">Зарегистрироваться</a></p>
     </div>
