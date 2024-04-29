@@ -9,49 +9,48 @@
   </fieldset>
 
       <div class="container col-md-6" style="float:right; position: relative; top: -100px; left: 20px">
-          <p style="outline:2px solid #555; border-radius:5px; width: 300px; height: 300px;">
-          <img id="frame" src="" class="img-fluid" style="max-width: 300px; max-height: 300px;  " /></p>
+    <p style="outline:2px solid #555; border-radius:5px; width: 300px; height: 300px;">
+        <img id="frame" src="" class="img-fluid" style="max-width: 300px; max-height: 300px;  " />
+    </p>
 
-            <div class="mb-5">
-                <input class="form-control" name="prev" type="file" id="formFile" onchange="preview()" accept="image/png" required>
-            </div>
-      </div>
-      <script>
-            function checkImageSize(file) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => {
-            if (img.width === img.height){
-                resolve();
-            } else {
-                reject(new Error('Изображение должно быть квадратным и иметь расширение .png!'));
-            }
-        };
-        img.src = URL.createObjectURL(file);
-    });
-}
-function clearInputField() {
-            document.getElementById('myForm').reset();
-        }
-// Показ изображения (мне пришлось читать гайды по джаваскрипту аааа)
-function preview() {
-    const file = event.target.files[0];
-    checkImageSize(file)
-        .then(() => {
-            frame.src = URL.createObjectURL(file);
-        })
-        .catch(error => {
-            alert(error.message);
-            document.getElementById('formfile').value = null;
+    <div class="mb-5">
+        <input class="form-control" name="prev" type="file" id="formFile" onchange="preview()" accept="image/png" required>
+    </div>
+</div>
+
+<script>
+    function checkImage(file) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => {
+                if (img.width === img.height && file.type === 'image/png'){
+                    resolve();
+                } else {
+                    reject(new Error('Изображение должно быть квадратным и иметь расширение .png!'));
+                }
+            };
+            img.src = URL.createObjectURL(file);
         });
-}
+    }
 
-// ОЧистка изображения
-function clearimage() {
-    document.getElementById('formfile').value = null;
-    frame.src = "";
-}
-      </script>
+    function preview() {
+        const file = event.target.files[0];
+        checkImage(file)
+            .then(() => {
+                const frame = document.getElementById('frame');
+                frame.src = URL.createObjectURL(file);
+                frame.style.display = 'block';
+            })
+            .catch(error => {
+                alert(error.message);
+                document.getElementById('formFile').value = null;
+                const frame = document.getElementById('frame');
+                frame.src = '';
+                frame.style.display = 'none';
+            });
+    }
+</script>
+
 
   <fieldset>
       <legend>Дополнительные данные</legend>
@@ -75,39 +74,62 @@ document.getElementById('file').onchange = function(e) {
 };
 </script>
         </div>
-        <div>
-            <legend for='files'>Выберите дополнительные файлы: </legend>
-            <label>Поддерживаются только png!</label>
-            <input id='files' type='file' name="files" accept="/image/png" multiple/>
-            <output id='result' />
-            <script>
-window.onload = function() {
-  if (window.File && window.FileList && window.FileReader) {
-    var filesInput = document.getElementById("files");
-    filesInput.addEventListener("change", function(event) {
-      var files = event.target.files;
-      var output = document.getElementById("result");
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        if (!file.type.match('png'))
-          continue;
-        var picReader = new FileReader();
-        picReader.addEventListener("load", function(event) {
-          var picFile = event.target;
-          var div = document.createElement("div");
-          div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
-            "title='" + picFile.name + "'/>";
-          output.insertBefore(div, null);
+<div>
+    <legend for='files'>Выберите дополнительные файлы: </legend>
+    <label>Поддерживаются только png!</label>
+    <input id='files' type='file' name="files" accept="image/png" multiple/>
+    <output id='result'></output>
+</div>
+
+
+<script>
+   window.onload = function() {
+    if (window.File && window.FileList && window.FileReader) {
+        var filesInput = document.getElementById("files");
+        filesInput.addEventListener("change", function(event) {
+            var files = event.target.files;
+            var output = document.getElementById("result");
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                if (!file.type.match('image/png')) // Проверяем тип файла
+                    continue;
+                var picReader = new FileReader();
+                picReader.addEventListener("load", function(event) {
+                    var picFile = event.target;
+                    var div = document.createElement("div");
+                    div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
+                        "title='" + picFile.name + "'/>";
+                    output.insertBefore(div, null);
+
+                    // Отправляем изображение на сервер
+                    var formData = new FormData();
+                    formData.append('file', file);
+                    uploadImage(formData);
+                });
+                picReader.readAsDataURL(file);
+            }
         });
-        picReader.readAsDataURL(file);
-      }
-    });
-  } else {
-    console.log("Ваш браузер отвратителен и не поддерживает мою гениальность :)");
-  }
+    } else {
+        console.log("Ваш браузер отвратителен и не поддерживает мою гениальность :)");
+    }
 }
-            </script>
-        </div>
+
+function uploadImage(formData) {
+    fetch('/upload_image', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Показываем изображение на странице
+        var img = document.createElement('img');
+        img.src = data.url;
+        document.getElementById('result').appendChild(img);
+    })
+    .catch(error => console.error('Ошибка:', error));
+}
+</script>
+
     </fieldset>
     <div>
         <button type="submit">Отправить</button>
