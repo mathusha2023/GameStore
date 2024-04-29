@@ -47,7 +47,7 @@ def index():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
-    return render_template('index.html', game_dict=game_dict, api_url=api_url)
+    return render_template('index.html', game_dict=game_dict, api_url=api_url, title="Главная")
 
 
 def get_login_by_id(user_id):
@@ -129,7 +129,7 @@ def logout():
 @app.route("/create")
 @login_required
 def create():
-    return render_template('create.html', api_url=api_url)
+    return render_template('create.html', api_url=api_url, title="Создать игру")
 
 
 @app.route("/mygames")
@@ -149,7 +149,7 @@ def mygames():
                 game['author_id'] = author_id
         game_dict = games_list
     print(game_dict)
-    return render_template('mygames.html', game_dict=game_dict, api_url=api_url)
+    return render_template('mygames.html', game_dict=game_dict, api_url=api_url, title="Мои игры")
 
 
 @app.route('/game/<game_id>')
@@ -165,17 +165,17 @@ def game_detail(game_id):
             game_data['author'] = author
             game_data['author_id'] = author_id
     print(game_data)
-    return render_template('game.html', game=game_data, api_url=api_url)
+    return render_template('game.html', game=game_data, api_url=api_url, title=game_data["title"])
 
 
 @app.route("/privacy")
 def privacy():
-    return render_template('privacy.html')
+    return render_template('privacy.html', title="Политика конфиденциальности")
 
 
 @app.route("/terms")
 def terms():
-    return render_template('terms.html')
+    return render_template('terms.html', title="Условия пользования")
 
 
 @login_manager.user_loader
