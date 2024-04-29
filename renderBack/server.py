@@ -32,6 +32,8 @@ def main():
 
 
 @app.route("/", methods=['GET', 'POST'])
+@app.route("/index", methods=['GET', 'POST'])
+@app.route("/games", methods=['GET', 'POST'])
 def index():
     name = request.args.get("name", None)
     url = f'{api_url}/games' if name is None else f'{api_url}/games?name={name}'
