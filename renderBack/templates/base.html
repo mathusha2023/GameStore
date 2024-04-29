@@ -17,9 +17,15 @@
       </a>
     </div>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Искать игры" aria-label="Поиск" aria-describedby="button-addon2">
+        <input type="text" class="form-control" placeholder="Искать игры" aria-label="Поиск" aria-describedby="button-addon2" id="kinput">
 
         <script>
+            kinput.onkeydown = handle;
+
+            function handle(e) {
+            if (e.key === "Enter") searchByName();
+            }
+
             function searchByName() {
             let input = document.querySelector('input');
             window.location.href = "/?name=" + input.value;
