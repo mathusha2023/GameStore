@@ -87,4 +87,4 @@ class GameListResource(Resource):
         game.prev = prev
         session.add(game)
         session.commit()
-        return jsonify({"message": "ok"})
+        return jsonify({"message": "ok", "id": i})

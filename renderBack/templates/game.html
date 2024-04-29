@@ -46,7 +46,7 @@
         {{game['desc']}}
     </p>
     <div id="imgframe" style="width: 100%">
-        <div id="images" class="carousel slide carousel-fade" data-bs-ride="carousel" style="width: max-content; margin: auto">
+        <div id="images" class="carousel slide carousel" data-bs-ride="carousel" style="width: max-content; margin: auto">
             <div class="carousel-inner">
                 {% for image in game['images'] %}
                 <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -69,7 +69,7 @@
 <div>
     <h3>Скачать игру!</h3>
     <a href={{api_url}}/file?p={{game['file']}}>
-        <button type="submit" class="btn btn-outline-danger">Украсть!</button>
+        <button type="submit" class="btn btn-outline-info">Украсть!</button>
     </a>
 </div>
 </div>

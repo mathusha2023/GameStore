@@ -87,52 +87,56 @@ document.getElementById('file').onchange = function(e) {
 
 
 <script>
-function uploadImage(formData) {
-    fetch('/upload_image', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Показываем изображение на странице
-        var img = document.createElement('img');
-        img.src = data.url;
-        document.getElementById('result').appendChild(img);
-    })
-    .catch(error => console.error('Ошибка:', error));
-}
-
-window.onload = function() {
-    if (window.File && window.FileList && window.FileReader) {
-        var filesInput = document.getElementById("files");
-        filesInput.addEventListener("change", function(event) {
-            var files = event.target.files;
-            var output = document.getElementById("result");
-            var formData = new FormData(); // Создаем объект FormData
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                if (!file.type.match('image/png')) // Проверяем тип файла
-                    continue;
-                var picReader = new FileReader();
-                picReader.addEventListener("load", function(event) {
-                    var picFile = event.target;
-                    var div = document.createElement("div");
-                    div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
-                        "title='" + picFile.name + "'/>";
-                    output.insertBefore(div, null);
-                });
-                picReader.readAsDataURL(file);
-
-                // Добавляем изображение в объект formData
-                formData.append('files', file);
-            }
-            // Отправляем объект formData на сервер
-            uploadImage(formData);
-        });
-    } else {
-        console.log("Ваш браузер отвратителен и не поддерживает мою гениальность :)");
+    function uploadImage(formData) {
+        fetch('/upload_image', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Показываем изображение на странице
+            var img = document.createElement('img');
+            img.src = data.url;
+            document.getElementById('result').appendChild(img);
+        })
+        .catch(error => console.error('Ошибка:', error));
     }
-}
+
+    window.onload = function() {
+        if (window.File && window.FileList && window.FileReader) {
+            var filesInput = document.getElementById("files");
+            filesInput.addEventListener("change", function(event) {
+                var files = event.target.files;
+                var output = document.getElementById("result");
+
+                // Очищаем содержимое #result перед добавлением новых изображений
+                output.innerHTML = '';
+
+                var formData = new FormData(); // Создаем объект FormData
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+                    if (!file.type.match('image/png')) // Проверяем тип файла
+                        continue;
+                    var picReader = new FileReader();
+                    picReader.addEventListener("load", function(event) {
+                        var picFile = event.target;
+                        var div = document.createElement("div");
+                        div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
+                            "title='" + picFile.name + "'/>";
+                        output.insertBefore(div, null);
+                    });
+                    picReader.readAsDataURL(file);
+
+                    // Добавляем изображение в объект formData
+                    formData.append('files', file);
+                }
+                // Отправляем объект formData на сервер
+                uploadImage(formData);
+            });
+        } else {
+            console.log("Ваш браузер отвратителен и не поддерживает мою гениальность :)");
+        }
+    }
 </script>
 
     </fieldset>

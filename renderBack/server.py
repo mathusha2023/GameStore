@@ -120,8 +120,11 @@ def senddata():
             "file": ("zip", zip_file.read()),
             "images": images
         }
-        requests.post(url, data=pickle.dumps(data)).json()
-        return redirect('/index')
+        req = requests.post(url, data=pickle.dumps(data))
+        if req.status_code == 200:
+            return redirect(f'/game/{req.json()["id"]}')
+        else:
+            return redirect('/index')
 
 
 @app.route('/logout')
