@@ -1,8 +1,29 @@
 {% extends "base.html" %}
 {% block body %}
+<div id="wrupper">
+<div id="head" style="display: flex; max-width: 100%">
+sdfdsf
+</div>
+
+
+
+
+
+
 <div id="info" style="width: 48vw; border-right: 5px solid red">
     <div id="title" class="fw-bold text-center" style="text-align:center; font-size: 42px">{{ game['title'] }}</div>
+    <div id="desc" style="min-height: 300px">
+        <p>{{game['desc']}}</p>
+    </div>
+    <div>
+        <h3>Snatched!</h3>
+        <a href={{api_url}}/file?p={{game['file']}}>
+            <button type="submit">Украсть!</button>
+        </a>
+
+    </div>
 </div>
+
 <div id="images" class="" style="">
     <p style="outline:2px solid #555; border-radius:5px; width: 16vw; height: 16vw;">
         <img id="frame" src="{{api_url}}/file?p={{game['prev']}}" class="img-fluid" style="max-width: 16vw; max-height: 16vw;  " />
@@ -24,5 +45,6 @@
             <span class="visually-hidden">СледуЮщая</span>
         </button>
     </div>
+</div>
 </div>
 {% endblock %}

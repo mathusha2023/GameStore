@@ -97,7 +97,7 @@ def senddata():
     url = f"{api_url}/games"
     if request.method == 'POST':
         title = request.form.get('title')
-        desk = request.form.get('desk', '')
+        desc = request.form.get('desc', '')
         author = int(current_user.get_id())
         prev_file = request.files['prev']
         zip_file = request.files['file']
@@ -106,10 +106,9 @@ def senddata():
         images = []
         for file in files:
             images.append(("png", file.read()))
-        print(images)
         data = {
             "title": title,
-            "desc": desk,
+            "desc": desc,
             "author": author,
             "prev": ("png", prev_file.read()),
             "file": ("zip", zip_file.read()),
@@ -148,6 +147,7 @@ def mygames():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
+    print(game_dict)
     return render_template('mygames.html', game_dict=game_dict, api_url=api_url)
 
 

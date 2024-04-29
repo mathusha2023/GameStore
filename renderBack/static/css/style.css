@@ -25,11 +25,16 @@ div{
 }
 .navigation{
     display: inline-block;
-    float: left
+    float: left;
+}
+.wrupper{
+    flex-direction: column;
+    align-items: center
 }
 .contentik {
     display: inline-block;
-    float: left
+    float: left;
+
 }
 .thumbnail {
   height: 100px;
