@@ -66,11 +66,20 @@
     </div>
 </div>
 
-<div>
+<div id="buttons" style="display: flex">
+    <div id="download" style="width: 10vw">
     <h3>Скачать игру!</h3>
     <a href={{api_url}}/file?p={{game['file']}}>
         <button type="submit" class="btn btn-outline-info">Украсть!</button>
     </a>
+    </div>
+    <div id="delete_nahren" style="width: 10vw; margin-left: 28vw">
+        <h3 style="float: right">Удалить игру!</h3>
+        <a href={{api_url}}/file?p={{game['file']}}>
+        <button type="submit" class="btn btn-outline-danger" style="float: right">Удалить!</button>
+    </a>
+
+    </div>
 </div>
 </div>
 {% endblock %}

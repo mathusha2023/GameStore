@@ -176,6 +176,12 @@ def game_detail(game_id):
     return render_template('game.html', game=game_data, api_url=api_url, title=game_data["title"])
 
 
+@app.route("/delete/<game_id>")
+def delete(game_id):
+    requests.delete(game_id)
+    return redirect('/index')
+
+
 @app.route("/privacy")
 def privacy():
     return render_template('privacy.html', title="Политика конфиденциальности")
