@@ -25,6 +25,10 @@
                 for (var j = 0; j < 4 - Math.ceil(rating % 1) * 4; j++) {
                     starsHTML += '<span class="fa fa-star"></span>';
                 }
+                var sobaka = 5 - Math.ceil(rating);
+            for (var m = 0; m < sobaka; m ++ ){
+                starsHTML += '<span class="fas fa-star fa-fw" style="color: black"></span>';
+            }
             } else {
                 for (var k = 0; k < 5 - Math.floor(rating); k++) {
                     starsHTML += '<span class="fa fa-star"></span>';

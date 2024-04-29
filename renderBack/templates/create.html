@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block body %}
+<div id="wrupper" style="max-height: 100%">
+    <div id="head">
+        <h2>Загрузить игру</h2>
+    </div>
 <form id="chloroform" action="/senddata" method="post" enctype=multipart/form-data >
-  <h2>Загрузить игру</h2>
-  <fieldset>
+  <fieldset id="maindata">
     <legend>Основные данные</legend>
       <label for="title">Название игры:</label>
       <input type="text" name="title"  id="title" maxlength="24" required>
@@ -144,4 +147,5 @@ document.getElementById('file').onchange = function(e) {
         <button type="submit">Отправить</button>
     </div>
 </form>
+</div>
 {% endblock %}

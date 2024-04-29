@@ -75,10 +75,14 @@ div{
   }
 }
 .fa-star.checked {
-            color: yellow;
-        }
+    color: yellow;
+}
+.fa-star-half-alt{
+    color: yellow;
+}
 .fa-star{
     font-size: 3vw;
+    color: black
 }
 .fa-star-half-alt {
     font-size: 3vw;
