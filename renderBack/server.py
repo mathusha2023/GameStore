@@ -161,7 +161,7 @@ def mygames():
     return render_template('mygames.html', game_dict=game_dict, api_url=api_url, title="Мои игры")
 
 
-@app.route('/game/<game_id>', methods=['POST', 'GET'])
+@app.route('/game/<int:game_id>', methods=['POST', 'GET'])
 # def send_message(game_id, user_id, mark, message):
 #     url = f"{api_url}/comment/{game_id}"
 #     data = {
@@ -197,14 +197,11 @@ def game_detail(game_id):
     return render_template('game.html', game=game_data, form=form, api_url=api_url, title=game_data["title"])
 
 
-@app.route("/delete/<game_id>")
+@app.route("/delete/<int:game_id>")
 def delete(game_id):
-    url = f"{api_url}/delete/{game_id}"
+    url = f"{api_url}/game/{game_id}"
     response = requests.delete(url)
-    if response.status_code == 200:
-        print("Игра успешно удалена")
-    else:
-        print("Ошибка при удалении игры:", response.text)
+    return redirect('/index')
 
 
 @app.route("/privacy")
