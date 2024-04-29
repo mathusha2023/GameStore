@@ -105,11 +105,13 @@ def senddata():
         prev_file = request.files['prev']
         zip_file = request.files['file']
         files = request.files.getlist('files')
-        print(files)
+        if not prev_file.filename.endswith('.png'):
+            prev_file = open('url_for(static, filename=images/default.png)', 'rb')
+
         images = []
         for file in files:
             images.append(("png", file.read()))
-        print(files)
+
         data = {
             "title": title,
             "desc": desc,
@@ -119,14 +121,14 @@ def senddata():
             "images": images
         }
         requests.post(url, data=pickle.dumps(data)).json()
-        return redirect('/')
+        return redirect('/index')
 
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect("/")
+    return redirect("/index")
 
 
 @app.route("/create")
