@@ -100,24 +100,92 @@
             }
         </script>
     </div>
-    <form method="post">
-        {{ form.csrf_token }}
-        <div class="form-group">
-            {{ form.review.label }}
-            {{ form.review(class="form-control") }}
-            {% for error in form.review.errors %}
-            <span class="text-danger">{{ error }}</span>
-            {% endfor %}
+    <div id="comment_section">
+        <h3 style="margin-top: 10vw">Комментарии</h3>
+        <div id="comment_post">
+            <div class="card"
+                 style="display: flex; width: 100%; border: none; margin: auto;">Ваш комментарий:
+                <div class="comment-box ml-2" style="">
+                    <div class="comment-area" style="float: left; width: 100%; min-height: 10vw">
+                        <textarea class="comment-text" placeholder="Введите комментарий" rows="4"
+                                  style="resize: none; width: 100%; height: 10vw"></textarea>
+                    </div>
+
+                    <div id="rating+words" style="width: 100%">
+                        <div id="words" style="width: 100%; text-align: end">
+                            Ваша оценка:
+                        </div>
+
+                        <div class="rating"
+                             style="display: flex; flex-direction: row-reverse; float: right; width:16vw">
+                            <input type="radio" onclick="selectRating(5)" name="rating" value="5" id="5"
+                                   style="display: none">
+                            <label for="5"
+                                   style="position: relative; width: 3vw; font-size: 3vw; color: #fff700; cursor: pointer; margin-left: 3px;">☆</label>
+                            <input type="radio" onclick="selectRating(4)" name="rating" value="4" id="4"
+                                   style="display: none">
+                            <label for="4"
+                                   style="position: relative; width: 3vw; font-size: 3vw; color: #fff700; cursor: pointer; margin-left: 3px;">☆</label>
+                            <input type="radio" onclick="selectRating(3)" name="rating" value="3" id="3"
+                                   style="display: none">
+                            <label for="3"
+                                   style="position: relative; width: 3vw; font-size: 3vw; color: #fff700; cursor: pointer; margin-left: 3px;">☆</label>
+                            <input type="radio" onclick="selectRating(2)" name="rating" value="2" id="2"
+                                   style="display: none">
+                            <label for="2"
+                                   style="position: relative; width: 3vw; font-size: 3vw; color: #fff700; cursor: pointer; margin-left: 3px;">☆</label>
+                            <input type="radio" onclick="selectRating(1)" name="rating" value="1" id="1"
+                                   style="display: none">
+                            <label for="1"
+                                   style="position: relative; width: 3vw; font-size: 3vw; color: #fff700; cursor: pointer; margin-left: 3px;">☆</label>
+                        </div>
+                    </div>
+
+                    <div id="button" style="width: 100%; clear: both; text-align: end">
+                        <button type="button" class="btn btn-outline-success-" onclick="submitComment()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-send" viewBox="0 0 16 16">
+                                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"></path>
+                            </svg>
+                            Прокомментировать!
+                        </button>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            {{ form.rating.label }}
-            {{ form.rating(class="form-control") }}
-            {% for error in form.rating.errors %}
-            <span class="text-danger">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <button type="submit" class="btn btn-primary">Отправить отзыв</button>
-    </form>
+    </div>
+    <script>
+        function selectRating(rating) {
+            // Обработка выбора оценки
+            console.log("Выбранная оценка:", rating);
+        }
+
+        function submitComment() {
+        var commentText = document.querySelector('.comment-text').value;
+        var rating = document.querySelector('input[name="rating"]:checked');
+
+        // Проверка наличия комментария и оценки перед отправкой
+        if (!commentText.trim()) {
+            alert("Пожалуйста, введите комментарий.");
+            return;
+        }
+        if (!rating) {
+            alert("Пожалуйста, выберите оценку.");
+            return;
+        }
+
+        var ratingValue = rating.value;
+        // Отправка комментария и оценки на сервер
+        console.log("Отправка комментария:", commentText);
+        console.log("Отправка оценки:", ratingValue);
+        // Дополнительная логика отправки данных на сервер
+    }
+    </script>
+
+    <div id="comments_get">
+
+    </div>
 </div>
 
 {% endblock %}
