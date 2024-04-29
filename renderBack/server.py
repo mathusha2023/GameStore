@@ -156,22 +156,8 @@ def mygames():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
-    print(game_dict)
     return render_template('mygames.html', game_dict=game_dict, api_url=api_url, title="Мои игры")
 
-
-# def send_comment(game_id, user_id, mark, message):
-#     url = f"{api_url}/comment/{game_id}"
-#     data = {
-#         "mark": mark,
-#         "user": user_id,
-#         "message": message
-#     }
-#     response = requests.put(url, json=data)
-#     if response.status_code == 200:
-#         print("Комментарий успешно отправлен")
-#     else:
-#         print("Ошибка при отправке комментария:", response.text)
 
 
 @app.route('/game/<int:game_id>', methods=['POST', 'GET'])
@@ -186,13 +172,27 @@ def game_detail(game_id):
         if author:
             game_data['author'] = author
             game_data['author_id'] = author_id
-    # if request.method == 'POST' and form.validate_on_submit():
-    #     mark = request.data.mark
-    #     message = form.review.data
-    #     user_id = current_user.get_id()
-    #     send_comment(game_id, user_id, mark, message)
-    #     return redirect(f"/game/{game_id}")
+    print(game_data)
     return render_template('game.html', game=game_data, api_url=api_url, title=game_data["title"])
+
+@app.route('/send_comment/<int:game_id>', methods=['POST'])
+def send_comment(game_id):
+    url = f"{api_url}/comment/{game_id}"
+    if request.method == 'POST':
+        mark = request.form.get('mark')
+        message = request.form.get('review')
+        user_id = current_user.get_id()
+        data = {
+            "mark": mark,
+            "user": user_id,
+            "message": message
+        }
+        response = requests.put(url, json=data)
+        if response.status_code == 200:
+            print("Комментарий успешно отправлен")
+        else:
+            print("Ошибка при отправке комментария:", response.text)
+        return redirect(f"/game/{game_id}")
 
 
 @app.route("/delete/<int:game_id>")
