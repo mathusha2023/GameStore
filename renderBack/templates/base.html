@@ -42,7 +42,14 @@
                  1 11 0z"/> </svg>
         </button>
     </div>
-
+<div class="logbut" style="position:absolute; top:50px; right:32px">
+    {% if current_user.is_anonymous %}
+    <a href="/login" class="btn btn-outline-danger">Войти/Зарегистрироваться</a>
+    {% else %}
+    <p style="font-size:16px; margin: 36px" class="badge bg-primary text-wrap btn btn-danger">Текущий пользователь: {{current_user.login}}</p>
+    <a href="/logout" class="btn btn-outline-danger">Выйти</a>
+    {% endif %}
+</div>
 </div>
 </header>
 <div id="main">
