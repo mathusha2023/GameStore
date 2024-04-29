@@ -42,15 +42,16 @@ class GameListResource(Resource):
     @staticmethod
     def get():
         author = request.args.get("author", None)
+        name = request.args.get("name", "")
         session = db_session.create_session()
         if author is None:
-            games = session.query(Game).all()
+            games = session.query(Game).filter(Game.title.like(f"{name}%")).all()
         else:
             try:
                 author = int(author)
             except ValueError:
                 abort(400, message="Author value must be integer")
-            games = session.query(Game).filter(Game.author == author)
+            games = session.query(Game).filter(Game.author == author, Game.title.like(f"{name}%"))
         return jsonify(
             dict(games=[item.to_dict(only=("id", "title", "prev", "author", "rate")) for item in games])
         )
