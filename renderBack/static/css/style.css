@@ -74,3 +74,14 @@ div{
     color: white;
   }
 }
+.fa-star.checked {
+            color: yellow;
+        }
+.fa-star{
+    font-size: 3vw;
+}
+.fa-star-half-alt {
+    font-size: 3vw;
+}
+
+

@@ -9,8 +9,34 @@
         <div id="title" class="fw-bold text-center" style="text-align:center; font-size: 42px; height: 3vw; text-align: center; vertical-align: middle; line-height: 3vw;">{{ game['title'] }}</div>
         <div id="author">{{ game['author'] }}</div>
     </div>
-    <div id="rate" style="outline:2px solid #555; border-radius:5px; width: 20vw; height: 3vw;">
-        <!-- Тут будут звездочки и средний рейтинг -->
+    <div id="rating" style="outline:2px; solid #555; border-radius:5px; width: 20vw; height: 3vw;">
+        <script>
+        function displayRating(rating) {
+            var starsHTML = '';
+
+            // Полные звезды
+            for (var i = 1; i <= Math.floor(rating); i++) {
+                starsHTML += '<span class="fa fa-star checked"></span>';
+            }
+
+            // Половинки или оставшиеся части звезд
+            if (rating % 1 !== 0) {
+                starsHTML += '<span class="fa fa-star-half-alt checked"></span>';
+                for (var j = 0; j < 4 - Math.ceil(rating % 1) * 4; j++) {
+                    starsHTML += '<span class="fa fa-star"></span>';
+                }
+            } else {
+                for (var k = 0; k < 5 - Math.floor(rating); k++) {
+                    starsHTML += '<span class="fa fa-star"></span>';
+                }
+            }
+            starsHTML += ' Средний рейтинг: ' + rating.toFixed(1);
+            document.getElementById('rating').innerHTML = starsHTML;
+        }
+
+        var rating = {{ game['rate'] }};
+        displayRating(rating);
+        </script>
     </div>
 </div>
 
@@ -19,29 +45,32 @@
     <p id="infoframe" style="outline:2px solid #555; border-radius:5px; width: 100%; min-height: 15vw;">
         {{game['desc']}}
     </p>
-    <div id="images" class="carousel slide carousel-fade" data-bs-ride="carousel" style="width: max-content">
-        <div class="carousel-inner">
-            {% for image in game['images'] %}
-            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                <img src="{{api_url}}/file?p={{image['img']}}" class="d-block w-100" style="max-width: 20vw;max-height: 20vw;">
+    <div id="imgframe" style="width: 100%">
+        <div id="images" class="carousel slide carousel-fade" data-bs-ride="carousel" style="width: max-content; margin: auto">
+            <div class="carousel-inner">
+                {% for image in game['images'] %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img src="{{api_url}}/file?p={{image['img']}}" class="d-block w-100" style="max-width: 20vw;max-height: 20vw;">
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            <button class="carousel-control-prev" type="button" data-bs-target="#images" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Предыдущая</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#images" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Следующая</span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#images" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Предыдущая</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#images" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Следующая</span>
-        </button>
     </div>
-    </div>
-    <div>
-        <h3>Snatched!</h3>
-        <a href={{api_url}}/file?p={{game['file']}}>
-            <button type="submit">Украсть!</button>
-        </a>
-    </div>
+</div>
+
+<div>
+    <h3>Snatched!</h3>
+    <a href={{api_url}}/file?p={{game['file']}}>
+        <button type="submit">Украсть!</button>
+    </a>
+</div>
 </div>
 {% endblock %}
