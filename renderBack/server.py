@@ -33,7 +33,8 @@ def main():
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    url = f'{api_url}/games'
+    name = request.args.get("name", "")
+    url = f'{api_url}/games?name={name}'
     response = requests.get(url)
     game_dict = {}
     if response.status_code == 200:
