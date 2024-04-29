@@ -1,50 +1,47 @@
 {% extends "base.html" %}
 {% block body %}
-<div id="wrupper">
-<div id="head" style="display: flex; max-width: 100%">
-sdfdsf
+<div id="wrupper" style="max-height: 100%">
+<div id="head" style="display: flex; max-width: 100%;">
+    <p id="frame" style="outline:2px solid #555; border-radius:5px; width: 6vw; height: 6vw;">
+        <img id="prev" src="{{api_url}}/file?p={{game['prev']}}" class="img-fluid" style="max-width: 6vw; max-height: 6vw" />
+    </p>
+    <div id="title_author" style="margin-left: 1vw; margin-right: 1vw">
+        <div id="title" class="fw-bold text-center" style="text-align:center; font-size: 42px; height: 3vw; text-align: center; vertical-align: middle; line-height: 3vw;">{{ game['title'] }}</div>
+        <div id="author">{{ game['author'] }}</div>
+    </div>
+    <div id="rate" style="outline:2px solid #555; border-radius:5px; width: 20vw; height: 3vw;">
+        <!-- Тут будут звездочки и средний рейтинг -->
+    </div>
 </div>
 
 
-
-
-
-
-<div id="info" style="width: 48vw; border-right: 5px solid red">
-    <div id="title" class="fw-bold text-center" style="text-align:center; font-size: 42px">{{ game['title'] }}</div>
-    <div id="desc" style="min-height: 300px">
-        <p>{{game['desc']}}</p>
+<div id="info" style="width: 48vw">
+    <p id="infoframe" style="outline:2px solid #555; border-radius:5px; width: 100%; min-height: 15vw;">
+        {{game['desc']}}
+    </p>
+    <div id="images" class="carousel slide carousel-fade" data-bs-ride="carousel" style="width: max-content">
+        <div class="carousel-inner">
+            {% for image in game['images'] %}
+            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                <img src="{{api_url}}/file?p={{image['img']}}" class="d-block w-100" style="max-width: 20vw;max-height: 20vw;">
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#images" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Предыдущая</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#images" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Следующая</span>
+        </button>
+    </div>
     </div>
     <div>
         <h3>Snatched!</h3>
         <a href={{api_url}}/file?p={{game['file']}}>
             <button type="submit">Украсть!</button>
         </a>
-
     </div>
-</div>
-
-<div id="images" class="" style="">
-    <p style="outline:2px solid #555; border-radius:5px; width: 16vw; height: 16vw;">
-        <img id="frame" src="{{api_url}}/file?p={{game['prev']}}" class="img-fluid" style="max-width: 16vw; max-height: 16vw;  " />
-    </p>
-    <div id="moreimages" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            {% for image in game['images'] %}
-            <div class="carousel-item active">
-                <img src="{{api_url}}/file?p={{image['img']}}" class="d-block w-100" style="max-width: 20vw;max-height: 20vw;">
-            </div>
-            {% endfor %}
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Предыдущая</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">СледуЮщая</span>
-        </button>
-    </div>
-</div>
 </div>
 {% endblock %}

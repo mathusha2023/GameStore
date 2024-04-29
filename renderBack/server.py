@@ -109,6 +109,7 @@ def senddata():
         images = []
         for file in files:
             images.append(("png", file.read()))
+        print(files)
         data = {
             "title": title,
             "desc": desc,
