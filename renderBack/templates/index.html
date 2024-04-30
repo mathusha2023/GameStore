@@ -18,7 +18,7 @@
             <a href="{{ url_for('game_detail', game_id=game['id']) }}" class="link-light link-underline-opacity-0">
                 <div style="width: 26vw; height: 26vw">
                     <img src="{{ api_url }}/file?p={{game['prev']}}" class="img-thumbnail"
-                         style="max-width: 26vw; max-height: 26vw">
+                         style="max-width: 26vw; max-height: 26vw; min-height: 26vw; min-width: 26vw">
                 </div>
                 <div class="card-body" style="width: 26vw">
                     <h5 class="card-title text-start" style="">{{ game['title'] }}</h5>
