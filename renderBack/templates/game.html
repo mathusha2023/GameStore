@@ -160,18 +160,18 @@
 
 
     <div id="comments_get">
-    {% for comment in game['comments'] %}
-    <div class="comment">
-        <div class="author">{{ comment['user'] }}</div>
-        <div class="text">{{ comment['message'] }}</div>
-        <div class="rating" style="color: #ffd700; font-size: 20px;">
-            {% for _ in range(comment['mark']) %}
-            ★
-            {% endfor %}
+        {% for comment in game['comments'] %}
+        <div class="comment">
+            <div class="author">{{ comment['user'] }}</div>
+            <div class="text">{{ comment['message'] }}</div>
+            <div class="rating" style="color: #ffd700; font-size: 20px;">
+                {% for _ in range(comment['mark']) %}
+                ★
+                {% endfor %}
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
 
 </div>

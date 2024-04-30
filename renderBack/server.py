@@ -159,7 +159,6 @@ def mygames():
     return render_template('mygames.html', game_dict=game_dict, api_url=api_url, title="Мои игры")
 
 
-
 @app.route('/game/<int:game_id>', methods=['POST', 'GET'])
 def game_detail(game_id):
     game_data = {}
@@ -182,6 +181,7 @@ def game_detail(game_id):
                 comment['user_id'] = user_id
     print(game_data)
     return render_template('game.html', game=game_data, api_url=api_url, title=game_data["title"])
+
 
 @app.route('/send_comment/<int:game_id>', methods=['POST'])
 def send_comment(game_id):
