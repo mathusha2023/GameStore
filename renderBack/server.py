@@ -163,8 +163,10 @@ def mygames():
 @app.route('/game/<int:game_id>', methods=['POST', 'GET'])
 def game_detail(game_id):
     game_data = {}
-    url = f'{api_url}/game/{game_id}'
-    response = requests.get(url)
+    comments = {}
+    url_game = f'{api_url}/game/{int(game_id)}'
+
+    response = requests.get(url_game)
     if response.status_code == 200:
         game_data = response.json()
         author_id = int(game_data['author'])
@@ -172,6 +174,12 @@ def game_detail(game_id):
         if author:
             game_data['author'] = author
             game_data['author_id'] = author_id
+        for comment in game_data['comments']:
+            user_id = int(comment['user'])
+            user = get_login_by_id(user_id)
+            if user:
+                comment['user'] = user
+                comment['user_id'] = user_id
     print(game_data)
     return render_template('game.html', game=game_data, api_url=api_url, title=game_data["title"])
 
