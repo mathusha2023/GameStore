@@ -164,7 +164,8 @@ def game_detail(game_id):
     game_data = {}
     comments = {}
     url_game = f'{api_url}/game/{int(game_id)}'
-    url_comments = f'{api_url}/comment/{int(game_id)}?user_id={int(current_user.get_id())}'
+    if not current_user.is_anonymous:
+        url_comments = f'{api_url}/comment/{int(game_id)}?user_id={int(current_user.get_id())}'
     user_comment = None
 
     response = requests.get(url_game)
@@ -182,12 +183,13 @@ def game_detail(game_id):
                 comment['user'] = user
                 comment['user_id'] = user_id
 
-    response_comments = requests.get(url_comments)
-    if response_comments.status_code == 200:
-        user_comment = response_comments.json()
-    print(game_data)
-    print(user_comment)
-    return render_template('game.html', game=game_data, user_comment=user_comment, api_url=api_url,
+    if not current_user.is_anonymous:
+        response_comments = requests.get(url_comments)
+        if response_comments.status_code == 200:
+            user_comment = response_comments.json()
+        return render_template('game.html', game=game_data, user_comment=user_comment, api_url=api_url,
+                               title=game_data["title"])
+    return render_template('game.html', game=game_data, api_url=api_url,
                            title=game_data["title"])
 
 
