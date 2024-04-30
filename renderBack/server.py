@@ -162,7 +162,6 @@ def mygames():
 @app.route('/game/<int:game_id>', methods=['POST', 'GET'])
 def game_detail(game_id):
     game_data = {}
-    comments = {}
     url_game = f'{api_url}/game/{int(game_id)}'
     if not current_user.is_anonymous:
         url_comments = f'{api_url}/comment/{int(game_id)}?user_id={int(current_user.get_id())}'

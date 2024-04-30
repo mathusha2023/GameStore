@@ -128,6 +128,11 @@
     </div>
     <div id="comment_section">
         <h3 style="margin-top: 10vw">Комментарии</h3>
+        {% if current_user.is_anonymous %}
+        <p>
+            <a href="/login">Авторизуйтесь</a>, чтобы отправить свой комментарий
+        </p>
+        {% else %}
         <div id="comment_post">
             <div class="card" style="display: flex; width: 100%; border: none; margin: auto;">
                 Ваш комментарий:
@@ -210,21 +215,22 @@
                 </div>
             </div>
         </div>
-    </div>
+        {% endif %}
 
 
-    <div id="comments_get">
-        {% for comment in game['comments'] %}
-        <div class="comment">
-            <div class="author">{{ comment['user'] }}</div>
-            <div class="text">{{ comment['message'] }}</div>
-            <div class="rating" style="color: #ffd700; font-size: 20px;">
-                {% for _ in range(comment['mark']) %}
-                ★
-                {% endfor %}
+        <div id="comments_get">
+            {% for comment in game['comments'] %}
+            <div class="comment">
+                <div class="author">{{ comment['user'] }}</div>
+                <div class="text">{{ comment['message'] }}</div>
+                <div class="rating" style="color: #ffd700; font-size: 20px;">
+                    {% for _ in range(comment['mark']) %}
+                    ★
+                    {% endfor %}
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 
 

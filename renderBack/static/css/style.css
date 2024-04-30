@@ -77,17 +77,21 @@ div{
 }
 .fa-star.checked {
     color: yellow;
+    opacity: 1
 }
 .fa-star-half-alt{
     color: yellow;
+    opacity: 1
 }
 .fa-star{
     font-size: 3vw;
-    color: black
+    color: black;
+    opacity: 0
 }
 .fa-star-half {
     font-size: 3vw;
-    color: yellow
+    color: yellow;
+    opacity: 1
 }
 
 .rating>label::before {
