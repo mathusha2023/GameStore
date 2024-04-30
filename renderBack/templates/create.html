@@ -5,10 +5,10 @@
         <h2>Загрузить игру</h2>
     </div>
     <form id="chloroform" action="/senddata" method="post" enctype=multipart/form-data>
-        <fieldset id="maindata">
+        <fieldset id="maindata" style="width: 50%">
             <legend>Основные данные</legend>
             <label for="title">Название игры:</label>
-            <input type="text" name="title" id="title" maxlength="24" required>
+            <input type="text" name="title" id="title" maxlength="24" style="width: 100%" required>
         </fieldset>
 
         <div class="container col-md-6" style="float:right; position: relative; top: -100px; left: 20px">
@@ -16,7 +16,7 @@
                 <img id="frame" src="" class="img-fluid" style="max-width: 300px; max-height: 300px;  "/>
             </p>
 
-            <div class="mb-5">
+            <div class="mb-5" style="max-width: 300px">
                 <input class="form-control" name="prev" type="file" id="formFile" onchange="preview()"
                        accept="image/png" required>
             </div>
@@ -60,20 +60,21 @@
         </script>
 
 
-        <fieldset>
+        <fieldset style="width: 50%">
             <legend>Дополнительные данные</legend>
             <div>
                 <textarea name="desc" placeholder="Добавьте краткое описание игры" id="desc"
-                          style="width: 312px; height: 150px;" required></textarea>
+                          style="width: 100%; height: 150px;" required></textarea>
             </div>
             <div>
 
             </div>
         </fieldset>
-        <fieldset>
+        <fieldset style="width: 100%">
             <div>
                 <legend for="file" class="form-label">Zip архив с игрой</legend>
-                <input class="form-control form-control-lg" name="file" id="file" type="file" accept=".zip" required>
+                <input class="form-control form-control-lg" name="file" id="file" type="file" accept=".zip"
+                       style="width: 50%" required>
                 <script>
                     document.getElementById('file').onchange = function(e) {
                         if(!e.target.files[0].name.match(/\.(zip)$/)) {
@@ -83,30 +84,13 @@
                     };
                 </script>
             </div>
-            <div>
+            <div style="display: flex; flex-direction: column">
                 <legend for='files'>Выберите дополнительные файлы:</legend>
-                <label>Поддерживаются только png!</label>
-                <input id='files' type='file' name="files" accept="image/png" multiple/>
+                <input id='files' type='file' name="files" accept="image/png" style="width: 50%" multiple/>
                 <output id='result'></output>
             </div>
 
-
             <script>
-                function uploadImage(formData) {
-                    fetch('/upload_image', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Показываем изображение на странице
-                        var img = document.createElement('img');
-                        img.src = data.url;
-                        document.getElementById('result').appendChild(img);
-                    })
-                    .catch(error => console.error('Ошибка:', error));
-                }
-
                 window.onload = function() {
                     if (window.File && window.FileList && window.FileReader) {
                         var filesInput = document.getElementById("files");
@@ -114,28 +98,28 @@
                             var files = event.target.files;
                             var output = document.getElementById("result");
 
-                            // Очищаем содержимое #result перед добавлением новых изображений
                             output.innerHTML = '';
 
-                            var formData = new FormData(); // Создаем объект FormData
+                            var formData = new FormData();
                             for (var i = 0; i < files.length; i++) {
                                 var file = files[i];
-                                if (!file.type.match('image/png')) // Проверяем тип файла
+                                if (!file.type.match('image/png')) {
+                                    event.target.value = '';
                                     continue;
+                                }
                                 var picReader = new FileReader();
                                 picReader.addEventListener("load", function(event) {
                                     var picFile = event.target;
                                     var div = document.createElement("div");
                                     div.innerHTML = "<img class='thumbnail' src='" + picFile.result + "'" +
                                         "title='" + picFile.name + "'/>";
-                                    output.insertBefore(div, null);
+                                    output.appendChild(div);
                                 });
                                 picReader.readAsDataURL(file);
 
-                                // Добавляем изображение в объект formData
                                 formData.append('files', file);
                             }
-                            // Отправляем объект formData на сервер
+
                             uploadImage(formData);
                         });
                     } else {
@@ -146,7 +130,7 @@
 
         </fieldset>
         <div>
-            <button type="submit">Отправить</button>
+            <button class="btn btn-outline-success" style="float:right" type="submit">Отправить</button>
         </div>
     </form>
 </div>

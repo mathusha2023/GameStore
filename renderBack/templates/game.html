@@ -50,12 +50,13 @@
 
 
     <div id="info" style="width: 48vw">
-        <p id="infoframe" style="outline:2px solid #555; border-radius:5px; width: 100%; min-height: 15vw;">
+        <p id="infoframe"
+           style="outline:2px solid #555; border-radius:5px; width: 100%; min-height: 15vw; overflow-wrap: break-word;">
             {{game['desc']}}
         </p>
         <div id="imgframe" style="width: 100%">
             <div id="images" class="carousel slide carousel" data-bs-ride="carousel"
-                 style="width: max-content; margin: auto">
+                 style="width: max-content; margin: auto; overflow: hidden;">
                 <div class="carousel-inner">
                     {% for image in game['images'] %}
                     <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -74,6 +75,31 @@
                 </button>
             </div>
         </div>
+
+        <script>
+            var carousel = document.getElementById('images');
+            carousel.addEventListener('slid.bs.carousel', function () {
+                var prevButton = document.querySelector('.carousel-control-prev');
+                var nextButton = document.querySelector('.carousel-control-next');
+                prevButton.style.visibility = 'hidden';
+                nextButton.style.visibility = 'hidden';
+            });
+
+            carousel.addEventListener('slide.bs.carousel', function () {
+                var prevButton = document.querySelector('.carousel-control-prev');
+                var nextButton = document.querySelector('.carousel-control-next');
+                prevButton.style.visibility = 'hidden';
+                nextButton.style.visibility = 'hidden';
+            });
+
+            carousel.addEventListener('slid.bs.carousel', function () {
+                var prevButton = document.querySelector('.carousel-control-prev');
+                var nextButton = document.querySelector('.carousel-control-next');
+                prevButton.style.visibility = 'visible';
+                nextButton.style.visibility = 'visible';
+            });
+        </script>
+
     </div>
 
     <div id="buttons" style="display: flex">
@@ -109,7 +135,7 @@
                     <form action="/send_comment/{{game['id']}}" method="POST">
                         <div class="comment-area" style="float: left; width: 100%; min-height: 10vw">
                         <textarea class="comment-text" name="review" placeholder="Введите комментарий" rows="4"
-                                  style="resize: none; width: 100%; height: 10vw">{{ user_comment.message if user_comment else '' }}</textarea>
+                                  style="resize: none; width: 100%; height: 10vw; " required>{{ user_comment.message if user_comment else '' }}</textarea>
 
                         </div>
 
