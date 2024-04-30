@@ -49,7 +49,7 @@ def index():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
-    return render_template('index.html', game_dict=game_dict, api_url=api_url, title="Главная")
+    return render_template('index.html', game_dict=game_dict, api_url=api_url, name=name, title="Главная")
 
 
 def get_login_by_id(user_id):
