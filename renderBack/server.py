@@ -164,6 +164,8 @@ def game_detail(game_id):
     game_data = {}
     comments = {}
     url_game = f'{api_url}/game/{int(game_id)}'
+    url_comments = f'{api_url}/comment/{int(game_id)}?user_id={int(current_user.get_id())}'
+    user_comment = None
 
     response = requests.get(url_game)
     if response.status_code == 200:
@@ -179,8 +181,14 @@ def game_detail(game_id):
             if user:
                 comment['user'] = user
                 comment['user_id'] = user_id
+
+    response_comments = requests.get(url_comments)
+    if response_comments.status_code == 200:
+        user_comment = response_comments.json()
     print(game_data)
-    return render_template('game.html', game=game_data, api_url=api_url, title=game_data["title"])
+    print(user_comment)
+    return render_template('game.html', game=game_data, user_comment=user_comment, api_url=api_url,
+                           title=game_data["title"])
 
 
 @app.route('/send_comment/<int:game_id>', methods=['POST'])
