@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
 <div id="wrupper" style="max-height: 100%">
-    <div id="head" style="display: flex; max-width: 100%; width: ">
+    <div id="head" style="display: flex; max-width: 100%;">
         <p id="frame" style="outline:2px solid #555; border-radius:5px; width: 6vw; height: 6vw;">
             <img id="prev" src="{{api_url}}/file?p={{game['prev']}}" class="img-fluid"
                  style="max-width: 6vw; max-height: 6vw"/>
@@ -221,15 +221,15 @@
 
         <div id="comments_get">
             {% for comment in game['comments'] %}
-            <div class="comment">
-                <div class="author">{{ comment['user'] }}</div>
-                <div class="text">{{ comment['message'] }}</div>
+            <p class="comment">
+                <div class="fw-bolder fs-4" style="">{{ comment['user'] }}</div>
+                <div class="text" style="overflow-wrap: break-word; max-width: 48vw">{{ comment['message'] }}</div>
                 <div class="rating" style="color: #ffd700; font-size: 20px;">
                     {% for _ in range(comment['mark']) %}
                     ★
                     {% endfor %}
                 </div>
-            </div>
+            </p>
             {% endfor %}
         </div>
     </div>
