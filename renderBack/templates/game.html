@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
 <div id="wrupper" style="max-height: 100%">
-    <div id="head" style="display: flex; max-width: 100%;">
+    <div id="head" style="display: flex; max-width: 100%; width: ">
         <p id="frame" style="outline:2px solid #555; border-radius:5px; width: 6vw; height: 6vw;">
             <img id="prev" src="{{api_url}}/file?p={{game['prev']}}" class="img-fluid"
                  style="max-width: 6vw; max-height: 6vw"/>
@@ -60,7 +60,8 @@
                 <div class="carousel-inner">
                     {% for image in game['images'] %}
                     <div class="carousel-item {% if loop.first %}active{% endif %}">
-                        <img src="{{api_url}}/file?p={{image['img']}}" class="d-block w-100"
+                        <img src="{{api_url}}/file?p={{image['img']}}" onerror="this.onerror=null; this.remove();"
+                             class="d-block w-100"
                              style="max-width: 20vw;max-height: 20vw;">
                     </div>
                     {% endfor %}

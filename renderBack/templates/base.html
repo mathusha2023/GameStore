@@ -21,8 +21,13 @@
             </a>
         </div>
         <div class="input-group mb-3">
+            {% if name %}
+            <input type="text" class="form-control" placeholder="Искать игры" value="{{ name }}" aria-label="Поиск"
+                   aria-describedby="button-addon2" id="input">
+            {% else %}
             <input type="text" class="form-control" placeholder="Искать игры" aria-label="Поиск"
                    aria-describedby="button-addon2" id="kinput">
+            {% endif %}
 
             <script>
                 kinput.onkeydown = handle;
