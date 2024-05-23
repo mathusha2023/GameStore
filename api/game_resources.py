@@ -18,6 +18,7 @@ class GameResource(Resource):
         session = db_session.create_session()
         game: Game = session.query(Game).get(game_id)
         d = game.to_dict()
+        d["comments"] = d["comments"][::-1]
         d["comments_count"] = len(game.comments)
         d["images_count"] = len(game.images)
         return jsonify(
