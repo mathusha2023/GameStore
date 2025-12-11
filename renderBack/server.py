@@ -229,6 +229,10 @@ def privacy():
 def terms():
     return render_template('terms.html', title="Условия пользования")
 
+@app.route("/sponsors")
+def sponsors():
+    return render_template('sponsors.html', title="Лохи которых мы наебали на деньги")
+
 
 @login_manager.user_loader
 def load_user(user_id):

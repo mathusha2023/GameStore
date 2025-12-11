@@ -32,7 +32,7 @@ app = MyApp()
 
 @app.get("/")
 def index():
-    return "OK"
+    return "Сосал?"
 
 
 def main():

@@ -1,0 +1,111 @@
+{% extends "base.html" %}a
+{% block body %}
+<style>
+        .sponsors-column {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header-container {
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .sponsor-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 50px;
+            padding: 25px;
+            background: #282C30;
+            border-radius: 12px;
+            border-left: 6px solid #3498db;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .sponsor-text {
+            flex: 1;
+        }
+
+        .sponsor-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3DB1FF;
+            margin-bottom: 10px;
+        }
+
+        .sponsor-quote {
+            font-style: italic;
+            color: #7f8c8d;
+            font-size: 17px;
+            line-height: 1.5;
+            max-width: 500px;
+        }
+
+        .sponsor-image {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #3498db;
+            margin-left: 30px;
+        }
+    </style>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+
+  <div>
+      <h1><em><strong><span style="font-size:48px"><span style="font-family:Comic Sans MS,cursive">ГЛАВНЫЕ СПОНСОРЫ</span></span></strong></em>
+      </h1>
+
+   <div class="sponsor-card">
+        <div class="sponsor-info">
+            <div class="sponsor-name">yura5495</div>
+            <div class="sponsor-quote">
+                Задонатил 50₽
+            </div>
+            <div class="sponsor-quote">
+                "Будь добр, сдохни пожалуйста
+                <br>
+                Как нибудь так, чтобы ты помучился еще"
+            </div>
+        </div>
+        <img src="{{url_for('static', filename='images/sp1.jpg')}}"
+             alt="Юрий Бердник"
+             class="sponsor-image">
+    </div>
+
+    <div class="sponsor-card">
+        <div class="sponsor-info">
+            <div class="sponsor-name">Kowalsklll</div>
+            <div class="sponsor-quote">
+                Задонатил 101.01₽
+            </div>
+            <div class="sponsor-quote">
+                "Здравствуйте ничтожные, нищие смертные и мои верные последователи. Сегодня ваш великий бог Нагибатордеда666 играет в дедлок и отвечает на ваши нищенские комментарии"
+            </div>
+        </div>
+        <img src="{{url_for('static', filename='images/sp2.jpeg')}}"
+             alt="Саня Ковальчук, интернет не анонимен"
+             class="sponsor-image">
+    </div>
+
+    <div class="sponsor-card">
+        <div class="sponsor-info">
+            <div class="sponsor-name">sonikxx</div>
+            <div class="sponsor-quote">
+                Задонатила 50₽
+            </div>
+            <div class="sponsor-quote">
+                "моральная усталость требует аморальный отдых"
+            </div>
+        </div>
+        <img src="{{url_for('static', filename='images/sp3.jpg')}}"
+             alt="Соня"
+             class="sponsor-image">
+    </div>
+      <div>Хочешь попасть сюда? Задонать на 89303042212 Альфа Банк!</div>
+</div>
+{% endblock %}
