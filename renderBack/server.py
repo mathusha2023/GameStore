@@ -17,6 +17,7 @@ SECRET_KEY = os.getenv('NEAPI_SECRET_KEY')
 API_HOST = os.getenv("API_HOST")
 API_PORT = os.getenv('API_PORT')
 api_url = f'http://{API_HOST}:{API_PORT}'
+PUBLIC_API_URL = os.getenv("PUBLIC_API_URL")
 print(api_url)
 app = Flask(__name__)
 login_manager = LoginManager()
@@ -49,7 +50,7 @@ def index():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
-    return render_template('index.html', game_dict=game_dict, api_url=api_url, name=name, title="Главная")
+    return render_template('index.html', game_dict=game_dict, api_url=PUBLIC_API_URL, name=name, title="Главная")
 
 
 def get_login_by_id(user_id):
@@ -77,7 +78,7 @@ def register():
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
-    return render_template('register.html', title='Регистрация', form=form, api_url=api_url)
+    return render_template('register.html', title='Регистрация', form=form, api_url=PUBLIC_API_URL)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -92,7 +93,7 @@ def login():
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    return render_template('login.html', title='Авторизация', form=form, api_url=api_url)
+    return render_template('login.html', title='Авторизация', form=form, api_url=PUBLIC_API_URL)
 
 
 @app.route('/senddata', methods=['POST', 'GET'])
@@ -137,7 +138,7 @@ def logout():
 @app.route("/create")
 @login_required
 def create():
-    return render_template('create.html', api_url=api_url, title="Создать игру")
+    return render_template('create.html', api_url=PUBLIC_API_URL, title="Создать игру")
 
 
 @app.route("/mygames")
@@ -156,7 +157,7 @@ def mygames():
                 game['author'] = author
                 game['author_id'] = author_id
         game_dict = games_list
-    return render_template('mygames.html', game_dict=game_dict, api_url=api_url, title="Мои игры")
+    return render_template('mygames.html', game_dict=game_dict, api_url=PUBLIC_API_URL, title="Мои игры")
 
 
 @app.route('/game/<int:game_id>', methods=['POST', 'GET'])
@@ -186,9 +187,9 @@ def game_detail(game_id):
         response_comments = requests.get(url_comments)
         if response_comments.status_code == 200:
             user_comment = response_comments.json()
-        return render_template('game.html', game=game_data, user_comment=user_comment, api_url=api_url,
+        return render_template('game.html', game=game_data, user_comment=user_comment, api_url=PUBLIC_API_URL,
                                title=game_data["title"])
-    return render_template('game.html', game=game_data, api_url=api_url,
+    return render_template('game.html', game=game_data, api_url=PUBLIC_API_URL,
                            title=game_data["title"])
 
 

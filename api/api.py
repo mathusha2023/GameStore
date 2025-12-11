@@ -27,12 +27,19 @@ class MyApp(Flask):
         super().run(host=HOST, port=PORT)
 
 
+app = MyApp()
+
+
+@app.get("/")
+def index():
+    return "OK"
+
+
 def main():
     if not os.path.isdir("db"):
         os.mkdir("db")
         os.mkdir("db/games")
     db_session.global_init("db/games.db")
-    app = MyApp()
     app.run()
 
 
