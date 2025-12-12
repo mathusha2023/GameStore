@@ -231,7 +231,7 @@ def terms():
 
 @app.route("/sponsors")
 def sponsors():
-    return render_template('sponsors.html', title="Лохи которых мы наебали на деньги")
+    return render_template('sponsors.html', title="Лохи, которых мы обвели вокруг пальца ради денег")
 
 
 @login_manager.user_loader
